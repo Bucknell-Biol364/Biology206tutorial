@@ -1,0 +1,15 @@
+---
+title: "206 tutorial"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+```{r test}
+dream_team <- Cheyenne + Katie + Emily
+```
+
+
