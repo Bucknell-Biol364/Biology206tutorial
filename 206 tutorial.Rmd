@@ -31,19 +31,18 @@ data <- read.csv("trait_data.csv", header= TRUE, sep= ",")
 ```
 
 
-
-
-```{r}
+```{r install ggtree}
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install("ggtree", version = "3.8")
-library(ggtr)
+library(ggtree)
 ```
 
-<<<<<<< HEAD
-
-
-hello world does this work please do
-=======
-Resources
->>>>>>> 73c14d393b7247db77bbd6c8542dbceb2cb02569
+```{r read table tree}
+library(data.tree)
+library(data.table)
+data_2 <- as.data.frame(data)
+data_3 <- ?as.Node.data.frame(data_2)
+tree <- read.tree(data_2)
+```
+https://cran.r-project.org/web/packages/data.tree/vignettes/data.tree.html
