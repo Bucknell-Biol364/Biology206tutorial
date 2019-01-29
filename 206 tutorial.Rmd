@@ -13,7 +13,7 @@ dream_team <- Cheyenne + Katie + Emily
 ```
 
 ```{Tree visualizations}
-http://www.phytools.org/Cordoba2017/ex/15/Plotting-methods.html
+#http://www.phytools.org/Cordoba2017/ex/15/Plotting-methods.html
 
 ```
 
@@ -26,6 +26,13 @@ http://www.phytools.org/Cordoba2017/ex/15/Plotting-methods.html
 #https://cran.r-project.org/web/packages/data.tree/vignettes/data.tree.html
 ```
 
+```{r read data}
+data <- read.csv("trait_data.csv", header= TRUE, sep= ",")
+```
+
+
+
+
 ```{r}
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
@@ -33,6 +40,10 @@ BiocManager::install("ggtree", version = "3.8")
 library(ggtr)
 ```
 
+<<<<<<< HEAD
 
 
 hello world does this work please do
+=======
+Resources
+>>>>>>> 73c14d393b7247db77bbd6c8542dbceb2cb02569
