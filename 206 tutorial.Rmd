@@ -1,77 +1,35 @@
 ---
 title: "206 tutorial"
 output: html_document
-editor_options: 
-  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## R Markdown
 ```{r test}
 dream_team <- Cheyenne + Katie + Emily
 ```
 
-Installing packages to makes a tree
-ade4, ape, phylobase
-```{r library}
-library(ape)
-library(ade4)
-library(phylobase)
-```
-
-```{r read csv}
-data<- read.csv("trait_data.csv", sep=",")
-```
-
-installed tidyverse and tidytree
-```{r tree packages}
-library(tidyverse)
-library(tidytree)
+```{Tree visualizations}
+http://www.phytools.org/Cordoba2017/ex/15/Plotting-methods.html
 
 ```
 
-```{r read tree}
-tree<- read.tree(data)
+```{r tree analysis}
+#analysis of similarity using continuous variables
+#https://onlinelibrary.wiley.com/doi/full/10.1002/ece3.2051
 ```
 
-
-
-
-
-```{r some data   not great}
-data(lizards)
-liz.tr <- read.tree(tex=lizards$hprA) # make a tree
-liz <- phylo4d(liz.tr, lizards$traits) # make a phylo4d object
-
-data(mjrochet)
+```{building a tree}
+#https://cran.r-project.org/web/packages/data.tree/vignettes/data.tree.html
 ```
 
-```{r diversitree}
-library(diversitree)
-## These are the parameters: they are a single speciation and extinction
-## rate, then 0->1 (trait A), 1->0 (A), 0->1 (B) and 1->0 (B).
-colnames(musse.multitrait.translate(2, depth=0))
-
-## Simulate a tree where trait A changes slowly and B changes rapidly.
-set.seed(1)
-phy <- tree.musse.multitrait(c(.1, 0, .01, .01, .05, .05),
-                             n.trait=2, depth=0, max.taxa=100,
-                             x0=c(0,0))
-## Here is the matrix of tip states (each row is a species, each column
-## is a trait).
-head(phy$tip.state)
-
-trait.plot(phy, phy$tip.state,
-           cols=list(A=c("pink", "red"), B=c("lightblue", "blue")))
+```{r}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("ggtree", version = "3.8")
+library(ggtr)
 ```
 
-
-
-
-
-Some resources
-https://4va.github.io/biodatasci/r-ggtree.html
-https://cran.r-project.org/web/packages/data.tree/vignettes/data.tree.html
-https://rdrr.io/cran/diversitree/man/trait.plot.html
