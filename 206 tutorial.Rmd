@@ -1,6 +1,8 @@
 ---
 title: "206 tutorial"
 output: html_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -19,12 +21,50 @@ library(ade4)
 library(phylobase)
 ```
 
+```{r read csv}
+data<- read.csv("trait_data.csv", sep=",")
+```
+
+installed tidyverse and tidytree
+```{r tree packages}
+library(tidyverse)
+library(tidytree)
+
+```
+
+```{r read tree}
+tree<- read.tree(data)
+```
+
+
+
+
+
 ```{r some data   not great}
 data(lizards)
 liz.tr <- read.tree(tex=lizards$hprA) # make a tree
 liz <- phylo4d(liz.tr, lizards$traits) # make a phylo4d object
 
 data(mjrochet)
+```
+
+```{r diversitree}
+library(diversitree)
+## These are the parameters: they are a single speciation and extinction
+## rate, then 0->1 (trait A), 1->0 (A), 0->1 (B) and 1->0 (B).
+colnames(musse.multitrait.translate(2, depth=0))
+
+## Simulate a tree where trait A changes slowly and B changes rapidly.
+set.seed(1)
+phy <- tree.musse.multitrait(c(.1, 0, .01, .01, .05, .05),
+                             n.trait=2, depth=0, max.taxa=100,
+                             x0=c(0,0))
+## Here is the matrix of tip states (each row is a species, each column
+## is a trait).
+head(phy$tip.state)
+
+trait.plot(phy, phy$tip.state,
+           cols=list(A=c("pink", "red"), B=c("lightblue", "blue")))
 ```
 
 
