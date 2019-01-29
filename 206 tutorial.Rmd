@@ -7,9 +7,31 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
 ```{r test}
 dream_team <- Cheyenne + Katie + Emily
 ```
 
+Installing packages to makes a tree
+ade4, ape, phylobase
+```{r library}
+library(ape)
+library(ade4)
+library(phylobase)
+```
 
+```{r some data   not great}
+data(lizards)
+liz.tr <- read.tree(tex=lizards$hprA) # make a tree
+liz <- phylo4d(liz.tr, lizards$traits) # make a phylo4d object
+
+data(mjrochet)
+```
+
+
+
+
+
+Some resources
+https://4va.github.io/biodatasci/r-ggtree.html
+https://cran.r-project.org/web/packages/data.tree/vignettes/data.tree.html
+https://rdrr.io/cran/diversitree/man/trait.plot.html
