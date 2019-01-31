@@ -81,3 +81,53 @@ View(caudata$dat)
 Maybe check out phytools:
 https://cran.r-project.org/web/packages/phytools/phytools.pdf
 
+Hey guys, below is just a start on what I think we should include if we do proceed with using ggtree and a newick file. Hopefully that will be the direction we go in!
+
+I think a good project outline would be:
+brief review of navigating in r (we should look at what 205 is doing in their tutorial)
+importing newick files and setting a working directory
+ggplot and ggtree
+making different visuals from the same tree data
+interpreting a tree basics
+customizing a tree to show different information
+
+```{r}
+#install neccessary packages..may take a few minutes because installing ggtree will also install all neccessary supplementary files (there is a masking function involved with installing ggtree that will hide the installation of supplementary packages)
+install.packages("tidyverse")
+library(tidyverse)
+library(ggtree)
+#prior to do the below commands I downloaded a newick file and placed it in the working directory
+tree <- read.tree("tree_newick.nwk") #imports the newick file into R
+tree #gives a nice summary of the newick file and data stored in the tree. summary appears in the r console. notice summary information includes: # of tips and internal nodes, tip labels, and whether the tree is rooted or not
+ggplot(tree) + geom_tree() #tree in ggplot with default theme. to clean up tree add the following theme
+ggplot(tree) + geom_tree() + theme_tree() #ggplot with geom_tree() function and theme_tree
+ggtree(tree) #short cut building a tree in ggplot with the tree theme. using this code will automatically build a geom_tree with theme_tree()
+
+ggtree(tree) + theme_tree2() #this will build the above tree, but with the addition of a scale on the x axis. this scale can be used to represent the amount of genetic change)..length of branch represents evolutionary time
+
+ggtree(tree, layout = "slanted") #different visualization
+
+ggtree(tree, layout = "circular") #different visualization
+
+ggtree(tree, branch.length = "none") #removing branch lenght makes a cladogram..not sure if we should include this
+```
+
+```{r}
+?ggtree #we should also add "helpful R tips" throughout so they get used to finding answers to problems when they come up
+
+#import your newick file into R and view a summary of your tree data to check that everything makes sense
+tree <- read.tree("tree_newick.nwk") ##maybe we can use a differnet newick file so that they are exposed to two different layouts? just a thought..
+tree 
+#construct a tree using the ggtree + geom() or the shortcut you learned above
+ggtree(tree) 
+
+ggtree(tree) + theme_tree2() #this will build the above tree, but with the addition of a scale on the x axis. this scale can be used to represent the amount of genetic change)..length of branch represents evolutionary time
+
+
+
+
+```
+
+
+I think after we show them how to build a basic tree, we should walk through how to interpret different aspects of the tree. after we talk through branch lengths, nodes/ recent ancestors, phyletic groups, etc we could have some code for customizing their tree to focus on different clades or specific taxa.
+
