@@ -1,0 +1,30 @@
+---
+title: "Final 206"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This is the document where we will put all of the code we know we want to use for the BIOL 206 tutorial, as well as detailed descriptions of what the code is doing etc. 
+
+The first section id to get you aclimted to using R to look at trees and manipulate them. 
+
+Test Tree
+```{r character table for test tree}
+data <- read.csv("trait_data.csv", header= TRUE, sep= ",")
+```
+ 
+```{r tree text}
+text_string <- "((((lamprey, sea bass),antelope), (bald eagle), alligator));"
+```
+
+```{r reading tree}
+treew<- read.tree(text=text_string)
+```
+
+```{r plotting tree}
+plot(treew,no.margin=TRUE, edge.width=2)
+```
+
