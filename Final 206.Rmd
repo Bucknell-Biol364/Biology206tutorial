@@ -12,19 +12,39 @@ This is the document where we will put all of the code we know we want to use fo
 The first section id to get you aclimted to using R to look at trees and manipulate them. 
 
 Test Tree
+
+Reading in a table from a .csv (a type of excel file)
 ```{r character table for test tree}
 data <- read.csv("trait_data.csv", header= TRUE, sep= ",")
 ```
- 
-```{r tree text}
+
+Now you will assign this newick file (a common text format for trees) the name text_string so you can use it to build a tree 
+```{r tree text aka a newick file}
 text_string <- "((((lamprey, sea bass),antelope), (bald eagle), alligator));"
 ```
 
+Use the comman read.tree to make an object called test_tree. This will be the object you use when plotting the tree. 
 ```{r reading tree}
-treew<- read.tree(text=text_string)
+test_tree<- read.tree(text=text_string)
 ```
 
+This is the simplest tree plotting function. 
 ```{r plotting tree}
-plot(treew,no.margin=TRUE, edge.width=2)
+plot(test_tree,no.margin=TRUE, edge.width=2)
 ```
+Viola! you have a tree! 
+
+Let's make some alterations so you can explore the options that R gives you in tree making. 
+
+summary 
+label nodes
+highlight branches
+cloud groups
+
+
+
+
+
+
+
 
