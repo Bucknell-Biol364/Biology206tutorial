@@ -9,7 +9,17 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This is the document where we will put all of the code we know we want to use for the BIOL 206 tutorial, as well as detailed descriptions of what the code is doing etc. 
 
-The first section id to get you aclimted to using R to look at trees and manipulate them. 
+
+Outline of project:
+
+1. General introduction to Rstudio. Includes explanation of four panes, setting a working directory, code chunks, commands for queries, test commands? (Im thinking similar to the summary(cars) code that opens with each markdown file). The goal of this section is for students to understand the general layout and function of Rstudio so that they can complete the following two sections.
+
+2. Guided Tutorial w/ basic tree. Students will be given a trait table and a pre-formatted tree code. Goals of this section are to help students navigate commands in R as well as to successfully construct, customize and interpret aspects of a tree. This tutorial is meant to give them the skills to complete the assignment given to them after this section. The tutorial includes how to set working directory to project folder, reading in a tree, summary data of tree command, general interpretation of tree, customization of tree. Customization includes labelling nodes with characteristics, highlighting specific branches, identifying mono/paraphyletic groups and visualizing them on the tree, identifying synapomorphies/symplesiomorphy. Could also include branched and unbranched trees and a few different ways to format the tree.
+
+3. Plant Assignment. Now they will use the skills they learned from the guided tutorial to interpret and customize their own tree! An additional goal of this assignment is to help students understand their class material by working with data from their textbook and producing unique trees that highlight characteristics of their own choosing.
+
+
+This first section is to get you acclimated to using R to look at trees and manipulate them. 
 
 Test Tree
 
@@ -18,23 +28,64 @@ Reading in a table from a .csv (a type of excel file)
 data <- read.csv("trait_data.csv", header= TRUE, sep= ",")
 ```
 
-Now you will assign this newick file (a common text format for trees) the name text_string so you can use it to build a tree 
+Guided Tutorial begins now:
+
+The following tutorial has been designed to walk you through the process of constructiong a phylogenic tree using R. You will learn about the different tools you will need to build a tree, how to customize a tree, and how to interpret information represented in a tree.
+
+To begin, lets make sure that you have the tools you will need to make a tree!
+
+R comes with many different types of tools that can be used to create and customize figures as well as analyze your data and create meaningful images. Often these tools are created by users and organized into different "packages" for other users to explore and use in their own work. The first thing you will need to do is to "load" the tools you will need into Rstudio. This is done by using the command "install.packages()" as well as the command "library()" to load the tool you will use.
+ 
+Install the tidyverse package and load the ggtree tool by clicking the green arrow in the upper right corner of the grey code chunk.
+
+```{r}
+install.packages("tidyverse")
+library(ggtree)
+##not sure but we may want to include disclaimer that the computer they will be working on will probably not have the latest version of r and they should click no on a message to restart R after updating the packages 
+```
+
+Now you will assign this newick file (a common text format for trees) the name text_string so you can use it to build a tree. The characters "<-" tells R that you want to assign information that you type to the right of it to the name that you type to the left of it. Now whenever you use the value "text_string", R will know that it includes the information in the newick file.
+
+Assign the newick file to the name "text_string" now.
+
 ```{r tree text aka a newick file}
 text_string <- "((((lamprey, sea bass),antelope), (bald eagle), alligator));"
 ```
 
-Use the comman read.tree to make an object called test_tree. This will be the object you use when plotting the tree. 
+Now look in the environment panel. Notice that you have populated it with a new variable called "text_string" and it contains the newick file. Great job!
+
+
+
+Now you need to show R how to interpret the information contained in your new variable. To do this, you will use the command "read.tree()". This will make an "object" that now contains the information translated by R from the newick file into usable information for your tree! 
+
+Use the command "read.tree()" to make an object called test_tree. This will be the object you use when plotting the tree. 
+
 ```{r reading tree}
-test_tree<- read.tree(text=text_string)
+test_tree <- read.tree(text=text_string)
 ```
 
-This is the simplest tree plotting function. 
+Look back to the environment panel and click on the object "test_tree" to view the translated newick file.
+
+
+Now that R is able to read the information you want to use, let's visualize this information into a tree! There are several functions for plotting phylogenic trees in R, but the simplest one is "plot()". This command works by typing the object that you want to plot followed by some formatting information."no.margin =" tells R to use the entire output frame to plot your tree and "edge.width =" tells R how thick to make the branches of your tree.
+
+Plot your first tree now!
+
 ```{r plotting tree}
-plot(test_tree,no.margin=TRUE, edge.width=2)
+plot(test_tree,no.margin=TRUE, edge.width=1)
 ```
 Viola! you have a tree! 
 
-Let's make some alterations so you can explore the options that R gives you in tree making. 
+This looks great, but let's make some alterations so you can explore the options that R gives you in tree making. 
+
+First lets get a general idea of the information represented in your tree by having R generate a summary for you.
+
+```{r}
+summary(test_tree)
+```
+Explore the informatin in the summary table. Notice that R can tell you how many tips and nodes are contained in your tree as well as what each tip label is. Also notice that you do not have nodes labelled on your tree. Lets label the nodes of your tree now!
+
+
 
 summary 
 label nodes
