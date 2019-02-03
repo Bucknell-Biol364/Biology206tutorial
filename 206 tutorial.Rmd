@@ -131,3 +131,22 @@ ggtree(tree) + theme_tree2() #this will build the above tree, but with the addit
 
 I think after we show them how to build a basic tree, we should walk through how to interpret different aspects of the tree. after we talk through branch lengths, nodes/ recent ancestors, phyletic groups, etc we could have some code for customizing their tree to focus on different clades or specific taxa.
 
+```{r plant newick}
+plants_newick <- "(Schmitzia_hiscockiana, Nitellopsis_obtusa, (Haplomitrium_cooperi, Blasia_pusilla, Porella_cordeana),(Sphagnum_cuspidata, Thuridium_delicaulum), (Huperzia_lucidula, Lycopodium_digitatum), (((Dryoteris marginalis, Dryopteris_intermedia),Dennstaedtia_punctilobula),(Equisetum_arvense)), (Ginkgo_biloba, (Pinus_strobilus, Pinus_rigida)), (Baptisia_australis, Solanum_osscruentum,(Juglans_nigra, Carya_ovata)));"
+```
+```{r}
+plant_phylo <- read.tree(text=plants_newick)
+```
+```{r}
+plot(plant_phylo,no.margin=TRUE, edge.width=1)
+```
+
+```{r plant common names}
+plants_commonname_newick <- "(red_algae, green_algae, (liverwort1, liverwor2, liverwort3),(sphagnum_moss, fern_moss), (shining_clubmoss, running_cedar_clubmoss), (((marginal_woodfern, intermediate_woodfern),hayscented_fern),(horsetail)), (ginkgo, (white_pine, pitch_pine)), (false_blue_indigo, nightshade,(black_walnut, shagbark_hickory)));"
+```
+```{r}
+plants_cn <- read.tree(text=plants_commonname_newick)
+```
+```{r}
+plot(plants_cn,no.margin=TRUE, edge.width=1)
+```
