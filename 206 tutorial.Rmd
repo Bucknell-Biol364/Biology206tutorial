@@ -150,3 +150,11 @@ plants_cn <- read.tree(text=plants_commonname_newick)
 ```{r}
 plot(plants_cn,no.margin=TRUE, edge.width=1)
 ```
+```{r}
+ggplot(plants_cn)+
+  geom_tree()+
+  theme_tree()+
+  geom_tiplab()
+
+```
+
