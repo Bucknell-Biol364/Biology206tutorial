@@ -97,7 +97,7 @@ install.packages("tidyverse")
 library(tidyverse)
 library(ggtree)
 #prior to do the below commands I downloaded a newick file and placed it in the working directory
-tree <- read.tree("tree_newick.nwk") #imports the newick file into R
+tree <- read.tree("tree_newick(1).nwk") #imports the newick file into R
 tree #gives a nice summary of the newick file and data stored in the tree. summary appears in the r console. notice summary information includes: # of tips and internal nodes, tip labels, and whether the tree is rooted or not
 ggplot(tree) + geom_tree() #tree in ggplot with default theme. to clean up tree add the following theme
 ggplot(tree) + geom_tree() + theme_tree() #ggplot with geom_tree() function and theme_tree
