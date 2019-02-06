@@ -1,87 +1,11 @@
 ---
-title: "206 tutorial"
+title: "Untitled"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
-## R Markdown
-```{r test}
-dream_team <- Cheyenne + Katie + Emily
-```
-
-```{r library packages}
-library(ape)
-library(phytools)
-library(geiger)
-```
-
-
-```{tree visualizations}
-#http://www.phytools.org/Cordoba2017/ex/15/Plotting-methods.html
-```
-```{r tree analysis}
-#analysis of similarity using continuous variables
-#https://onlinelibrary.wiley.com/doi/full/10.1002/ece3.2051
-```
-```{building a tree}
-#https://cran.r-project.org/web/packages/data.tree/vignettes/data.tree.html
-```
-
-
-
-TRYING THINGS
-```{r read data}
-data <- read.csv("trait_data.csv", header= TRUE, sep= ",")
-```
-
-
-```{r install ggtree}
-if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-BiocManager::install("ggtree", version = "3.8")
-library(ggtree)
-```
-
-```{r read table tree}
-library(data.tree)
-library(data.table)
-data_2 <- as.data.frame(data)
-data_3 <- ?as.Node.data.frame(data_2)
-tree <- read.tree(data_2)
-```
-https://cran.r-project.org/web/packages/data.tree/vignettes/data.tree.html
-
-
-Making a tree based on the character table 
-```{r tree text}
-text_string <- "((((lamprey, sea bass),antelope), (bald eagle), alligator));"
-```
-
-
-```{r reading tree}
-treew<- read.tree(text=text_string)
-```
-
-```{r plotting tree}
-plot(treew,no.margin=TRUE, edge.width=2)
-```
-
-geiger stuff
-pg 29 of vignette
-```{r geiger data}
-data(caudata)
-data("whales")
-
-View(caudata$dat)
-```
-
-Maybe check out phytools:
-https://cran.r-project.org/web/packages/phytools/phytools.pdf
-
-Hey guys, below is just a start on what I think we should include if we do proceed with using ggtree and a newick file. Hopefully that will be the direction we go in!
 
 I think a good project outline would be:
 brief review of navigating in r (we should look at what 205 is doing in their tutorial)
@@ -130,6 +54,3 @@ ggtree(tree) + theme_tree2() #this will build the above tree, but with the addit
 
 
 I think after we show them how to build a basic tree, we should walk through how to interpret different aspects of the tree. after we talk through branch lengths, nodes/ recent ancestors, phyletic groups, etc we could have some code for customizing their tree to focus on different clades or specific taxa.
-
-
-
