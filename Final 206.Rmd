@@ -92,7 +92,20 @@ label nodes
 highlight branches
 cloud groups
 
+Here's the newick for the tree you will be using for the rest of this tutorial
+Newicks are usually the output of tree building software like RAxML.
 
+The tutorial will get you as far as building a basic tree, then you will need to use the code above to manipulate the tree!
+
+```{r plant newick}
+plants_newick <- "(Schmitzia_hiscockiana, Nitellopsis_obtusa, (Haplomitrium_cooperi, Blasia_pusilla, Porella_cordeana),(Sphagnum_cuspidata, Thuridium_delicaulum), (Huperzia_lucidula, Lycopodium_digitatum), (((Dryoteris marginalis, Dryopteris_intermedia),Dennstaedtia_punctilobula),(Equisetum_arvense)), (Ginkgo_biloba, (Pinus_strobilus, Pinus_rigida)), (Baptisia_australis, Solanum_osscruentum,(Juglans_nigra, Carya_ovata)));"
+```
+```{r reading plant newick}
+plant_phylo <- read.tree(text=plants_newick)
+```
+```{r making basic plant phylo}
+plot(plant_phylo,no.margin=TRUE, edge.width=1)
+```
 
 
 
