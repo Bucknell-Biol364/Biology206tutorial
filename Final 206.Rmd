@@ -41,6 +41,10 @@ Install the tidyverse package and load the ggtree tool by clicking the green arr
 ```{r}
 install.packages("tidyverse")
 library(ggtree)
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("ggtree", version = "3.8")
+library(ggtree)
 ##not sure but we may want to include disclaimer that the computer they will be working on will probably not have the latest version of r and they should click no on a message to restart R after updating the packages 
 ```
 
@@ -104,9 +108,25 @@ You may be wondering how to know what node number your clade originates from. To
 
 ```{r}
 ggtree(test_tree) + 
-  geom_text(aes(label=node), hjust=-.3)
+   geom_text(aes(label=node), hjust=-.3)
 ```
+
 Using your tree map, go back to the code chunk and label the clade that only includes nodes 1 and 2 (sea bass and lamprey) by telling R which node to originate your clade from.
+
+You may also want to change the branch colors of a clade to make them stand out on your tree more. To do this, we have to tell ggtree the members of a clade and then then tell it to color the brances connected to those members.
+```{r THIS MAY WORK TO FOR CHANGING CLADE COLORS..NOT A CLOUD BUT ACHIEVES THE SAME THING}
+tree <- groupClade(tree, node=c(sea bass, lamprey), group_name = "group")
+
+ggtree(test_tree, aes(color = group, linetype="solid")) + 
+  geom_tiplab()  
+
+```
+
+Another fun thing you can do with your tree is identify the most recent common ancestor of two or more species! To do this, use the function "findMRCA()". You can also assign an MRCA and its offspring by using the "<-" text to name your clade (remember the name you assign goes to the left) and the code you used with "findMRCA()" to assign this clade to the right. Try this now.
+```{r}
+findMRCA(test_tree, c("lamprey", "seabass"))
+```
+
 
 You can also identify monophyletic or paraphyletic groups by putting them in a "cloud" so that they stand out on your tree. 
 
@@ -115,6 +135,8 @@ ggtree(test_tree) +
   geom_tiplab() + 
   geom_hilight(node= 8, fill="gold") 
 ```
+
+
 
 
 summary 
