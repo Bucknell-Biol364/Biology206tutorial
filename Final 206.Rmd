@@ -54,8 +54,6 @@ text_string <- "((((lamprey, sea bass),antelope), (bald eagle), alligator));"
 
 Now look in the environment panel. Notice that you have populated it with a new variable called "text_string" and it contains the newick file. Great job!
 
-
-
 Now you need to show R how to interpret the information contained in your new variable. To do this, you will use the command "read.tree()". This will make an "object" that now contains the information translated by R from the newick file into usable information for your tree! 
 
 Use the command "read.tree()" to make an object called test_tree. This will be the object you use when plotting the tree. 
@@ -131,7 +129,7 @@ Newicks are usually the output of tree building software like RAxML.
 The tutorial will get you as far as building a basic tree, then you will need to use the code above to manipulate the tree!
 
 ```{r plant newick}
-plants_newick <- "(Schmitzia_hiscockiana, Nitellopsis_obtusa, (Haplomitrium_cooperi, Blasia_pusilla, Porella_cordeana),(Sphagnum_cuspidata, Thuridium_delicaulum), (Huperzia_lucidula, Lycopodium_digitatum), (((Dryoteris marginalis, Dryopteris_intermedia),Dennstaedtia_punctilobula),(Equisetum_arvense)), (Ginkgo_biloba, (Pinus_strobilus, Pinus_rigida)), (Baptisia_australis, Solanum_osscruentum,(Juglans_nigra, Carya_ovata)));"
+plants_newick <- "(Schmitzia_hiscockiana, Nitellopsis_obtusa, (Haplomitrium_cooperi, Blasia_pusilla, Porella_cordeana),(Sphagnum_cuspidata, Thuridium_delicatulum), (Huperzia_lucidula, Lycopodium_digitatum), (((Dryoteris marginalis, Dryopteris_intermedia),Dennstaedtia_punctilobula),(Equisetum_arvense)), (Ginkgo_biloba, (Pinus_strobilus, Pinus_rigida)), (Baptisia_australis, Solanum_osscruentum,(Juglans_nigra, Carya_ovata)));"
 ```
 ```{r reading plant newick}
 plant_phylo <- read.tree(text=plants_newick)
@@ -140,7 +138,13 @@ plant_phylo <- read.tree(text=plants_newick)
 plot(plant_phylo,no.margin=TRUE, edge.width=1)
 ```
 
+So now you have basic tree with a bunch of scientific names. The goal is for you to use your skills from above, knowledge of trees, and likely google to figure out what exactly is on the tree and manipulate it to answer some questions. 
 
+Where are the most primitive plants? The most evolved? Find them and make the branch of the most primitive group red. 
+
+Where did woody stems evolve? Find this branch and label it "Evolution of woody stems"
+
+Find the fern(s). What is the most closely related species. Put a cloud around ferns and its close relative(s). 
 
 
 
