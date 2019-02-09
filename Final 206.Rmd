@@ -99,10 +99,9 @@ First, lets start by identifying a clade within your tree. Labelling a clade wit
 
 ```{r How to highlight a clade}
 ggtree(test_tree) + 
+  geom_tiplab()+
   geom_cladelabel(node=8, label="Clade 1", 
-                  color="red", offset=.8, align=TRUE) +
-  geom_label(aes(label=label))
-
+                  color="red", offset=.8, align=TRUE) 
 ```
 You may be wondering how to know what node number your clade originates from. To do this you will want to map your nodes. Think of this as a map to your tree, you probably would not use this tree in a publication or paper, but you will use it to help generate more descriptive trees. 
 
@@ -115,16 +114,21 @@ Using your tree map, go back to the code chunk and label the clade that only inc
 
 
 
-But what if you are not sure what the most recent commonly shared ancestor is for a group of taxa? Ggtree has the helpful function "findMRCA()". To use this function, simply tell R what tree it should look at, and what taxa you want to know about (to do this use c("taxa 1", "taxa 2",...)). You can also assign an MRCA and its offspring by using the "<-" text to name your clade (remember the name you assign goes to the left) and the code you used with "findMRCA()" to assign this clade to the right. Try this now.
+But what if you are not sure what the most recent commonly shared ancestor is for a group of taxa? Ggtree has some helpful functions for this! The function "mrca()" will generate a table where you can find the most recently shared node between any two taxa. For example, the most recently shared node between lamprey and sea bass is at node 9. You can also use the function "getMRCA()" to find the most recent common ancestor of two or more taxa. To use this function, simply tell R what tree it should look at ("phy= test_tree") and what taxa you want to know about (to do this use tip = c("taxa 1", "taxa 2",...)). 
 ```{r}
 mrca(phy = test_tree, full = FALSE)
 getMRCA(phy= test_tree, tip= c("lamprey", "seabass"))
 ```
+You can also assign an MRCA and its offspring by using the "<-" text to name your clade (remember the name you assign goes to the left) and the code you used with "findMRCA()" to assign this clade to the right. Try this now.
+
 
 You may also want to change the branch colors of a clade to make them stand out on your tree more. To do this, we have to tell ggtree the members of a clade and then then tell it to color the brances connected to those members.
 ```{r THIS MAY WORK TO FOR CHANGING CLADE COLORS..NOT A CLOUD BUT ACHIEVES THE SAME THING}
 
-groupClade(test_tree, .node = c("sea bass", "lamprey"), group_name = "group")
+#groupClade(test_tree, .node = c("seabass", "lamprey"), group_name = "group")
+
+test_tree <- groupClade(test_tree, .node=9)
+ggtree(test_tree, aes(color=group, linetype=group))
 
 
 ```
