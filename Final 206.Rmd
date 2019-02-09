@@ -7,19 +7,14 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-This is the document where we will put all of the code we know we want to use for the BIOL 206 tutorial, as well as detailed descriptions of what the code is doing etc. 
-
-
 Outline of project:
 
 1. General introduction to Rstudio. Includes explanation of four panes, setting a working directory, code chunks, commands for queries, test commands? (Im thinking similar to the summary(cars) code that opens with each markdown file). The goal of this section is for students to understand the general layout and function of Rstudio so that they can complete the following two sections.
 
-2. Guided Tutorial w/ basic tree. Students will be given a trait table and a pre-formatted tree code. Goals of this section are to help students navigate commands in R as well as to successfully construct, customize and interpret aspects of a tree. This tutorial is meant to give them the skills to complete the assignment given to them after this section. The tutorial includes how to set working directory to project folder, reading in a tree, summary data of tree command, general interpretation of tree, customization of tree. Customization includes labelling nodes with characteristics, highlighting specific branches, identifying mono/paraphyletic groups and visualizing them on the tree, identifying synapomorphies/symplesiomorphy. Could also include branched and unbranched trees and a few different ways to format the tree.
-
-3. Plant Assignment. Now they will use the skills they learned from the guided tutorial to interpret and customize their own tree! An additional goal of this assignment is to help students understand their class material by working with data from their textbook and producing unique trees that highlight characteristics of their own choosing.
 
 
 This first section is to get you acclimated to using R to look at trees and manipulate them. 
+
 
 Test Tree
 
@@ -45,7 +40,7 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 BiocManager::install("ggtree", version = "3.8")
 library(ggtree)
 ```
-Note R amy ask you if you want to install all, some, or none of the package. Type a for all and hit enter. 
+Note: R may ask you if you want to install all, some, or none of the package. Type a for all and hit enter. 
 
 Now you will assign this newick file (a common text format for trees) the name text_string so you can use it to build a tree. The characters "<-" tells R that you want to assign information that you type to the right of it to the name that you type to the left of it. Now whenever you use the value "text_string", R will know that it includes the information in the newick file.
 
@@ -95,9 +90,10 @@ ggtree(test_tree) + geom_tiplab()
 
 Great! Notice that this tree is essentially the same tree you made using the "plot()" function, but now you will see how easy it is to customize your ggtree!
 
+
 First, lets start by identifying a clade within your tree. Labelling a clade within a tree can be a really useful way to draw attention to a group of taxa that you want your reader to focus on. To highlight a clade we will use "geom_cladelabel()". Notice that there is some custom code within your clade label. "node =" tells R at what point in the tree to originate your clade. "label =" tells R what text you want to appear as your clade name and the following "color" "offset" and "align" are different aesthetic parameters for your clade label. 
 
-```{r How to highlight a clade}
+```{r How to label a clade}
 ggtree(test_tree) + 
   geom_tiplab()+
   geom_cladelabel(node=8, label="Clade 1", 
@@ -105,16 +101,17 @@ ggtree(test_tree) +
 ```
 You may be wondering how to know what node number your clade originates from. To do this you will want to map your nodes. Think of this as a map to your tree, you probably would not use this tree in a publication or paper, but you will use it to help generate more descriptive trees. 
 
+
 ```{r}
 ggtree(test_tree) + 
    geom_text(aes(label=node), hjust=-.3)
 ```
-
-Using your tree map, go back to the code chunk and label the clade that only includes nodes 1 and 2 (sea bass and lamprey) by telling R which node to originate your clade from.
-
+Using your tree map, go back to the code chunk {r How to label a clade} and label the clade that only includes nodes 1 and 2 (sea bass and lamprey) by telling R which node to originate your clade from.
 
 
-But what if you are not sure what the most recent commonly shared ancestor is for a group of taxa? Ggtree has some helpful functions for this! The function "mrca()" will generate a table where you can find the most recently shared node between any two taxa. For example, the most recently shared node between lamprey and sea bass is at node 9. You can also use the function "getMRCA()" to find the most recent common ancestor of two or more taxa. To use this function, simply tell R what tree it should look at ("phy= test_tree") and what taxa you want to know about (to do this use tip = c("taxa 1", "taxa 2",...)). 
+But what if you are not sure what the most recent commonly shared ancestor is for a group of taxa? Ggtree has some helpful functions for this! The function "mrca()" will generate a table where you can find the most recently shared node between any two taxa. For example, the most recently shared node between lamprey and sea bass is at node 9. 
+
+You can also use the function "getMRCA()" to find the most recent common ancestor of two or more taxa. To use this function, simply tell R what tree it should look at ("phy= test_tree") and what taxa you want to know about (to do this use tip = c("taxa 1", "taxa 2",...)). In your output window you will see [1] 9. This is telling you that the most recently shared node of lamprey and seabass is 9.
 ```{r}
 mrca(phy = test_tree, full = FALSE)
 getMRCA(phy= test_tree, tip= c("lamprey", "seabass"))
@@ -122,27 +119,26 @@ getMRCA(phy= test_tree, tip= c("lamprey", "seabass"))
 You can also assign an MRCA and its offspring by using the "<-" text to name your clade (remember the name you assign goes to the left) and the code you used with "findMRCA()" to assign this clade to the right. Try this now.
 
 
-You may also want to change the branch colors of a clade to make them stand out on your tree more. To do this, we have to tell ggtree the members of a clade and then then tell it to color the brances connected to those members.
-```{r THIS MAY WORK TO FOR CHANGING CLADE COLORS..NOT A CLOUD BUT ACHIEVES THE SAME THING}
-
-#groupClade(test_tree, .node = c("seabass", "lamprey"), group_name = "group")
-
+You may also want to change the branch colors of a clade to make them stand out on your tree more. To do this, we have to tell ggtree the members of a clade using the function "groupClade(your tree, .node=# of your clades origin)" and assign that grouped clade to your tree using "<-". Then we will tell ggtree to make a new tree with all branches and members of that clade shown in a different color fromt the rest of your tree.
+```{r }
 test_tree <- groupClade(test_tree, .node=9)
-ggtree(test_tree, aes(color=group, linetype=group))
-
-
+ggtree(test_tree, aes(color=group, linetype=group)) +
+  geom_tiplab()
 ```
+The code above is an easy and simple way of identifying and representing monoplytic groups on your tree! 
 
 
-You can also identify monophyletic or paraphyletic groups by putting them in a "cloud" so that they stand out on your tree. 
+But what if you want to represent a paraphyletic or polypheletic group? What if you have a list of taxa that you want to investigate, but you aren't sure if they are mono/para/polyphyletic? Ggtree has an answer for that as well! The function "groupOTU()" allows you to define wich taxa you want to group and will then trace back to their most recent common ancestor. Since you can define your taxa list however you like, the resulting group may bemonophyletic (clade), polyphyletic or paraphyletic.
 
 ```{r}
-ggtree(test_tree) + 
-  geom_tiplab() + 
-  geom_hilight(node= 8, fill="gold") 
+test_tree <- groupOTU(test_tree, .node = c("lamprey", "antelope"))
+ggtree(test_tree, aes(color=group, linetype=group)) +
+  geom_tiplab()
 ```
 
+Plant Assignment:
 
+Now you will use the skills you learned from the guided tutorial to interpret and customize your own tree! An additional goal of this assignment is to help you understand your class material by working with data from your textbook and producing unique trees that highlight characteristics of your own choosing.
 
 Here's the newick for the tree you will be using for the rest of this tutorial
 Newicks are usually the output of tree building software like RAxML.
