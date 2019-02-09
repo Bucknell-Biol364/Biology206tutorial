@@ -11,36 +11,45 @@ Outline of project:
 
 1. General introduction to Rstudio. Includes explanation of four panes, setting a working directory, code chunks, commands for queries, test commands? (Im thinking similar to the summary(cars) code that opens with each markdown file). The goal of this section is for students to understand the general layout and function of Rstudio so that they can complete the following two sections.
 
+Before we begin, lets review the basic layout of RStudio. 
+You are currently looking at the script window. You can enter text and save code chunks here.
 
+The box below this one is called the console. The console is similar to the script window in that commands can be entered here but they will executed directly after you hit enter. 
 
-This first section is to get you acclimated to using R to look at trees and manipulate them. 
+The box in the upper right corner is the environment and history pane. The environment tab is where you will populate your data and values. The history tab is where you can track your previous work. 
 
+The box on the bottom right has several tabs that contain different types of information. In this box is where you can find your files, install packages, and most importantly, where you can find help! 
 
-Test Tree
+You will find that all of these panels are very useful, however most of the work you do in this tutorial will be in this panel.
+
+Now that you are familiar with the general layout of RStudio, let's begin with a tutorial!
+
+SHOULD WE REMOVE THE TRAIT TABLE?
 
 Reading in a table from a .csv (a type of excel file)
 ```{r character table for test tree}
 data <- read.csv("trait_data.csv", header= TRUE, sep= ",")
 ```
 
-Guided Tutorial begins now:
+Guided Tutorial:
+You may remember using Rstudio during Bio 205 to visualize and analyze data. Rstudio can also be used to visualize and customize phylogenic trees!
 
 The following tutorial has been designed to walk you through the process of constructiong a phylogenic tree using R. You will learn about the different tools you will need to build a tree, how to customize a tree, and how to interpret information represented in a tree.
 
 To begin, lets make sure that you have the tools you will need to make a tree!
 
-R comes with many different types of tools that can be used to create and customize figures as well as analyze your data and create meaningful images. Often these tools are created by users and organized into different "packages" for other users to explore and use in their own work. The first thing you will need to do is to "load" the tools you will need into Rstudio. This is done by using the command "install.packages()" as well as the command "library()" to load the tool you will use.
+R comes with many different types of tools that can be used to create and customize figures, as well as analyze your data and create meaningful images. Often these tools are created by users and organized into different "packages" for other users to explore and use in their own work. The first thing you will need to do is to "load" the tools you will need into Rstudio. This is done by using the command "install.packages()" as well as the command "library()" to load the tool you will use.
  
 Install the tidyverse package and load the ggtree tool by clicking the green arrow in the upper right corner of the grey code chunk.
 
-```{r}
+```{r Loading packages}
 install.packages("tidyverse")
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install("ggtree", version = "3.8")
 library(ggtree)
 ```
-Note: R may ask you if you want to install all, some, or none of the package. Type a for all and hit enter. 
+Note: R may ask you if you want to install all, some, or none of the package. Type "a" for all and hit enter. 
 
 Now you will assign this newick file (a common text format for trees) the name text_string so you can use it to build a tree. The characters "<-" tells R that you want to assign information that you type to the right of it to the name that you type to the left of it. Now whenever you use the value "text_string", R will know that it includes the information in the newick file.
 
@@ -52,7 +61,8 @@ text_string <- "((((lamprey, sea bass),antelope), (bald eagle), alligator));"
 
 Now look in the environment panel. Notice that you have populated it with a new variable called "text_string" and it contains the newick file. Great job!
 
-Now you need to show R how to interpret the information contained in your new variable. To do this, you will use the command "read.tree()". This will make an "object" that now contains the information translated by R from the newick file into usable information for your tree! 
+
+Now you need to show R how to interpret the information contained in your new value. To do this, you will use the command "read.tree()". This will make an "object" that now contains the information translated by R from the newick file into usable information for your tree! 
 
 Use the command "read.tree()" to make an object called test_tree. This will be the object you use when plotting the tree. 
 
@@ -63,7 +73,9 @@ test_tree <- read.tree(text=text_string)
 Look back to the environment panel and click on the object "test_tree" to view the translated newick file.
 
 
-Now that R is able to read the information you want to use, let's visualize this information into a tree! There are several functions for plotting phylogenic trees in R, but the simplest one is "plot()". This command works by typing the object that you want to plot followed by some formatting information."no.margin =" tells R to use the entire output frame to plot your tree and "edge.width =" tells R how thick to make the branches of your tree.
+Now that R is able to read the information you want to use, let's visualize this information into a tree! 
+
+There are several functions for plotting phylogenic trees in R, but the simplest one is "plot()". This command works by typing the object that you want to plot followed by some formatting information."no.margin =" tells R to use the entire output frame to plot your tree and "edge.width =" tells R how thick to make the branches of your tree.
 
 Plot your first tree now!
 
@@ -79,11 +91,12 @@ First lets get a general idea of the information represented in your tree by hav
 ```{r}
 summary(test_tree)
 ```
-Explore the informatin in the summary table. Notice that R can tell you how many tips and nodes are contained in your tree as well as what each tip label is. Also notice that you do not have nodes labelled on your tree. 
+Explore the informatin in the summary table. Notice that R can tell you how many tips and nodes are contained in your tree as well as what each tip label is. 
+
 
 The "plot()" function is great for making simple trees, but if you want to get creative and customize your tree, it is much easier to use the function "ggtree()". This function allows you to highlight different parts of your tree, identify clades, find common ancestors as well as change the general aesthetics of your tree. First, lets use the same newick file that we translated above to make a basic ggtree. To add labels for our taxa we will use "+" and then a "geom_tiplab()" to label the tips.
 
-Go ahead and make your tree using ggtree() and add labels to the tips of the tree usings "+ geom_tiplab()"
+Go ahead and make your tree using "ggtree()" and add labels to the tips of the tree usings "+ geom_tiplab()"
 ```{r}
 ggtree(test_tree) + geom_tiplab()
 ```
@@ -91,7 +104,7 @@ ggtree(test_tree) + geom_tiplab()
 Great! Notice that this tree is essentially the same tree you made using the "plot()" function, but now you will see how easy it is to customize your ggtree!
 
 
-First, lets start by identifying a clade within your tree. Labelling a clade within a tree can be a really useful way to draw attention to a group of taxa that you want your reader to focus on. To highlight a clade we will use "geom_cladelabel()". Notice that there is some custom code within your clade label. "node =" tells R at what point in the tree to originate your clade. "label =" tells R what text you want to appear as your clade name and the following "color" "offset" and "align" are different aesthetic parameters for your clade label. 
+First, lets start by identifying a clade within your tree. Labelling a clade within a tree can be a really useful way to draw attention to a group of taxa that you want your reader to focus on. To highlight a clade we will use "+ geom_cladelabel()". Notice that there is some custom code within your clade label. "node =" tells R at what point in the tree to originate your clade. "label =" tells R what text you want to appear as your clade name and the following "color=" "offset=" and "align=" are different aesthetic parameters for your clade label. 
 
 ```{r How to label a clade}
 ggtree(test_tree) + 
@@ -99,24 +112,28 @@ ggtree(test_tree) +
   geom_cladelabel(node=8, label="Clade 1", 
                   color="red", offset=.8, align=TRUE) 
 ```
-You may be wondering how to know what node number your clade originates from. To do this you will want to map your nodes. Think of this as a map to your tree, you probably would not use this tree in a publication or paper, but you will use it to help generate more descriptive trees. 
+This looks great! Now your reader is able to interpret information about the tree you have made.
 
 
+You may be wondering how to know what node number your clade originates from. To do this you will want to map your nodes. Think of this as a map to your tree, you probably would not use this tree in a publication or paper, but you will use it to help generate more descriptive trees. To do this, add ("+") node labels to your tree by using "geom_text()". The information contained within this function is telling R that you want to label the internal nodes of your tree ("aes(label=node) and to place the labels to the right of the nodes ("hjust= -.4").
 ```{r}
 ggtree(test_tree) + 
-   geom_text(aes(label=node), hjust=-.3)
+  geom_text(aes(label=node), hjust=-.4)
 ```
 Using your tree map, go back to the code chunk {r How to label a clade} and label the clade that only includes nodes 1 and 2 (sea bass and lamprey) by telling R which node to originate your clade from.
 
 
 But what if you are not sure what the most recent commonly shared ancestor is for a group of taxa? Ggtree has some helpful functions for this! The function "mrca()" will generate a table where you can find the most recently shared node between any two taxa. For example, the most recently shared node between lamprey and sea bass is at node 9. 
 
-You can also use the function "getMRCA()" to find the most recent common ancestor of two or more taxa. To use this function, simply tell R what tree it should look at ("phy= test_tree") and what taxa you want to know about (to do this use tip = c("taxa 1", "taxa 2",...)). In your output window you will see [1] 9. This is telling you that the most recently shared node of lamprey and seabass is 9.
+You can also use the function "getMRCA()" to find the most recent common ancestor of two or more taxa. To use this function, simply tell R what tree it should look at ("phy= test_tree") and what taxa you want to know about (to do this use tip = c("taxa 1", "taxa 2",...)). 
+
+
 ```{r}
 mrca(phy = test_tree, full = FALSE)
+
 getMRCA(phy= test_tree, tip= c("lamprey", "seabass"))
 ```
-You can also assign an MRCA and its offspring by using the "<-" text to name your clade (remember the name you assign goes to the left) and the code you used with "findMRCA()" to assign this clade to the right. Try this now.
+In your output window you will see the MRCA table. Look at where lamprey and seabass intersect. Their most recently shared node is 9. You will also see that the output of the "getMRCA()" confirms this ([1] 9). 
 
 
 You may also want to change the branch colors of a clade to make them stand out on your tree more. To do this, we have to tell ggtree the members of a clade using the function "groupClade(your tree, .node=# of your clades origin)" and assign that grouped clade to your tree using "<-". Then we will tell ggtree to make a new tree with all branches and members of that clade shown in a different color fromt the rest of your tree.
@@ -128,13 +145,17 @@ ggtree(test_tree, aes(color=group, linetype=group)) +
 The code above is an easy and simple way of identifying and representing monoplytic groups on your tree! 
 
 
-But what if you want to represent a paraphyletic or polypheletic group? What if you have a list of taxa that you want to investigate, but you aren't sure if they are mono/para/polyphyletic? Ggtree has an answer for that as well! The function "groupOTU()" allows you to define wich taxa you want to group and will then trace back to their most recent common ancestor. Since you can define your taxa list however you like, the resulting group may bemonophyletic (clade), polyphyletic or paraphyletic.
+But what if you want to represent a paraphyletic or polypheletic group? What if you have a list of taxa, but you aren't sure if they are mono/para/polyphyletic? Ggtree has an answer for that as well! The function "groupOTU()" allows you to define wich taxa you want to investigate and will then trace back to their most recent common ancestor. Since you can define your taxa list however you like, the resulting group may be monophyletic (clade), polyphyletic or paraphyletic.
+
+Let's try this out by investigating whether lamprey and antelopes belong to a monophyletic (clade), polyphyletic or paraphyletic group.
 
 ```{r}
 test_tree <- groupOTU(test_tree, .node = c("lamprey", "antelope"))
 ggtree(test_tree, aes(color=group, linetype=group)) +
   geom_tiplab()
 ```
+
+What do you think? Are all offspring of the shared ancestor of antelope and lamprey represented in the blue grouping? What type of phyletic group does this tree show in blue then?
 
 Plant Assignment:
 
