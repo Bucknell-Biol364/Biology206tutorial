@@ -4,6 +4,8 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
+install.packages("knitr")
+library(knitr)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -38,14 +40,16 @@ To begin, lets make sure that you have the tools you will need to make a tree!
 
 R comes with many different types of tools that can be used to create and customize figures, as well as analyze your data and create meaningful images. Often these tools are created by users and organized into different "packages" for other users to explore and use in their own work. The first thing you will need to do is to "load" the tools you will need into Rstudio. This is done by using the command "install.packages()" as well as the command "library()" to load the tool you will use.
  
-Install the tidyverse package and load the ggtree tool by clicking the green arrow in the upper right corner of the grey code chunk.
+Install the tidyverse package and load the ggtree tool by clicking the green arrow in the upper right corner of the grey code chunk. This may take a few minutes to do. Grab a cup of tea and relax! Watch the console pane for updates on loading your packages. There will come a point when you are asked whether you want to update all/some/none of the packages. Type "a" in the console pane after this message and hit enter.
 
 ```{r Loading packages}
 install.packages("tidyverse")
+install.packages("phytools")
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install("ggtree", version = "3.8")
 library(ggtree)
+library(phytools)
 ```
 Note: R may ask you if you want to install all, some, or none of the package. Type "a" for all and hit enter. 
 
