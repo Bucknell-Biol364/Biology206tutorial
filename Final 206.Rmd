@@ -45,6 +45,7 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 BiocManager::install("ggtree", version = "3.8")
 library(ggtree)
 ```
+Note R amy ask you if you want to install all, some, or none of the package. Type a for all and hit enter. 
 
 Now you will assign this newick file (a common text format for trees) the name text_string so you can use it to build a tree. The characters "<-" tells R that you want to assign information that you type to the right of it to the name that you type to the left of it. Now whenever you use the value "text_string", R will know that it includes the information in the newick file.
 
@@ -145,7 +146,7 @@ Newicks are usually the output of tree building software like RAxML.
 The tutorial will get you as far as building a basic tree, then you will need to use the code above to manipulate the tree!
 
 ```{r plant newick}
-plants_newick <- "(Schmitzia_hiscockiana, Nitellopsis_obtusa, (Haplomitrium_cooperi, Blasia_pusilla, Porella_cordeana),(Sphagnum_cuspidata, Thuridium_delicatulum), (Huperzia_lucidula, Lycopodium_digitatum), (((Dryoteris marginalis, Dryopteris_intermedia),Dennstaedtia_punctilobula),(Equisetum_arvense)), (Ginkgo_biloba, (Pinus_strobilus, Pinus_rigida)), (Baptisia_australis, Solanum_osscruentum,(Juglans_nigra, Carya_ovata)));"
+plants_newick <- "(Schmitzia_hiscockiana, (Nitellopsis_obtusa, ((Haplomitrium_cooperi, Blasia_pusilla, Porella_cordeana),((Sphagnum_cuspidata, Thuridium_delicatulum), ((Huperzia_lucidula, Lycopodium_digitatum), ((((Dryoteris marginalis, Dryopteris_intermedia),Dennstaedtia_punctilobula),((Equisetum_arvense)), ((Ginkgo_biloba, ((Pinus_strobilus, Pinus_rigida)), ((Baptisia_australis, Solanum_osscruentum,((Juglans_nigra, Carya_ovata)))))))))))));"
 ```
 ```{r reading plant newick}
 plant_phylo <- read.tree(text=plants_newick)
@@ -156,12 +157,18 @@ plot(plant_phylo,no.margin=TRUE, edge.width=1)
 
 So now you have basic tree with a bunch of scientific names. The goal is for you to use your skills from above, knowledge of trees, and likely google to figure out what exactly is on the tree and manipulate it to answer some questions. 
 
-Where are the most primitive plants? The most evolved? Find them and make the branch of the most primitive group red. 
+1. Where are the most primitive plants? The most evolved? Find them and make the branch of the most primitive group red. 
 
-Where did woody stems evolve? Find this branch and label it "Evolution of woody stems"
+2. Where did woody stems evolve? Find this branch and label it "Evolution of woody stems".
 
-Find the fern(s). What is the most closely related species. Put a cloud around ferns and its close relative(s). 
+3. Find the fern(s). What is the most closely related species. Put a cloud around ferns and its close relative(s). 
 
+4. Change the scientific name of one of the angiosperms to a common name.
 
+5. Label the two monophyletic groups with the order they belong in.
 
+6. Where did roots and/or tracheids evolve? Highlight that node.
 
+7. Denote a paraphyletic group by changing the font color. Give a brief description of what that traits of that group are. (Water dwellers maybe?)
+
+8. Note all the places where vascular elements evolved. 
