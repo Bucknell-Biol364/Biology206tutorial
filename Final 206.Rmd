@@ -9,8 +9,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Outline of project:
 
-1. General introduction to Rstudio. Includes explanation of four panes, setting a working directory, code chunks, commands for queries, test commands? (Im thinking similar to the summary(cars) code that opens with each markdown file). The goal of this section is for students to understand the general layout and function of Rstudio so that they can complete the following two sections.
-
 Before we begin, lets review the basic layout of RStudio. 
 You are currently looking at the script window. You can enter text and save code chunks here.
 
