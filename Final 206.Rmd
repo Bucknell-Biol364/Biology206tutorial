@@ -100,15 +100,16 @@ The "plot()" function is great for making simple trees, but if you want to get c
 
 Go ahead and make your tree using "ggtree()" and add labels to the tips of the tree usings "+ geom_tiplab()"
 ```{r Using ggtree to plot a tree}
-ggtree(test_tree) + geom_tiplab()
+ggtree(test_tree) + geom_tiplab() + xlim(0, 5)
 ```
+Note: the xlim aregument helps to not cut off the tip labels. Change them around if you want to see what I mean, or get rid of the arguemnt entirely.
 
 Great! Notice that this tree is essentially the same tree you made using the "plot()" function, but now you will see how easy it is to customize your ggtree!
 
 
 First, lets start by identifying nodes within your tree. Identifying shared nodes will be useful later on when you want to find clades and other types of phyletic groups.
 ```{r Highlighting nodes}
-ggtree(test_tree) + geom_tiplab(hjust = -.2) + geom_nodepoint(color="yellow", alpha=.9, size= 4)
+ggtree(test_tree) + geom_tiplab(hjust = -.2) + geom_nodepoint(color="yellow", alpha=.9, size= 4) + xlim(0, 5)
 ```
 
 
@@ -117,6 +118,7 @@ Labelling a clade within a tree can be a really useful way to draw attention to 
 ```{r How to label a clade}
 ggtree(test_tree) + 
   geom_tiplab()+
+  xlim(0, 5) +
   geom_cladelabel(node=8, label="Clade 1", 
                   color="red", offset=.8, align=TRUE) 
 ```
@@ -126,7 +128,8 @@ This looks great! Now your reader is able to interpret information about the tre
 You may be wondering how to know what node number your clade originates from. To do this you will want to map your nodes. Think of this as a map to your tree, you probably would not use this tree in a publication or paper, but you will use it to help generate more descriptive trees. To do this, add ("+") node labels to your tree by using "geom_text()". The information contained within this function is telling R that you want to label the internal nodes of your tree ("aes(label=node) and to place the labels to the right of the nodes ("hjust= -.4").
 ```{r mapping nodes}
 ggtree(test_tree) + 
-  geom_text(aes(label=node), hjust=-.4)
+  geom_text(aes(label=node), hjust=-.4)+
+  xlim(0, 5)
 ```
 Using your tree map, go back to the code chunk {r How to label a clade} and label the clade that only includes nodes 1 and 2 (sea bass and lamprey) by telling R which node to originate your clade from.
 
@@ -148,11 +151,15 @@ You may also want to change the branch colors of a clade to make them stand out 
 ```{r grouping clades}
 test_tree <- groupClade(test_tree, .node=9)
 ggtree(test_tree, aes(color=group, linetype=group)) +
-  geom_tiplab()
+  geom_tiplab()+
+  xlim(0, 5)
 
 test_tree <- groupClade(test_tree, .node=c(9, 8))
-ggtree(test_tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=group==2)) + geom_tiplab()
+ggtree(test_tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=group==2)) + geom_tiplab()+
+xlim(0, 5)
 ```
+The code above produces 2 trees. To see them both use the arrows above them in the plots window. 
+
 The code above is an easy and simple way of identifying and representing monoplytic groups on your tree! 
 
 
@@ -163,7 +170,8 @@ Let's try this out by investigating whether lamprey and antelopes belong to a mo
 ```{r identifying phylogenic groups}
 test_tree <- groupOTU(test_tree, .node = c("lamprey", "antelope"))
 ggtree(test_tree, aes(color=group, linetype=group)) +
-  geom_tiplab()
+  geom_tiplab()+
+  xlim(0, 5)
 ```
 
 What do you think? Are all offspring of the shared ancestor of antelope and lamprey represented in the blue grouping? What type of phyletic group does this tree show in blue then?
@@ -189,8 +197,8 @@ plant_phylo <- read.tree(text=plants_newick)
 plot(plant_phylo,no.margin=TRUE, edge.width=1)
 ```
 
-```{r}
-plant_tree <- ggtree(plant_phylo) + geom_tiplab()
+```{r making a basic plant phylo with ggtree}
+plant_tree <- ggtree(plant_phylo) + geom_tiplab() + xlim(-10, 30)
 plant_tree
 ```
 
@@ -199,7 +207,7 @@ So now you have basic tree with a bunch of scientific names. The goal is for you
 
 1. Where are the most primitive plants? The most evolved? Find them and highlight the branch of the most primitive group. 
 ```{r question 1}
-plant_tree <- ggtree(plant_phylo) + geom_tiplab()
+plant_tree <- ggtree(plant_phylo) + geom_tiplab() + xlim(-10, 30)
 #mapping nodes
 ggtree(plant_phylo) +  
   geom_text(aes(label=node), hjust=-.4)
@@ -207,17 +215,17 @@ ggtree(plant_phylo) +
 #highlighting most primitive 
 plant_tree <- groupClade(plant_tree, .node=1)
 ggtree(plant_tree, aes(color=group, linetype=group)) +
-  geom_tiplab()
+  geom_tiplab() + xlim(-10, 30)
 
 #highlighting most evolved
 plant_tree <- groupClade(plant_tree, .node=20)
 ggtree(plant_tree, aes(color=group, linetype=group)) +
-  geom_tiplab()
+  geom_tiplab() + xlim(-10, 30)
 
 #highlighting most primitive and most evolved on same tree
 plant_tree <- groupClade(plant_tree, .node=c(1, 20))
 ggtree(plant_tree, aes(color=group, linetype=group)) +
-  geom_tiplab()
+  geom_tiplab() + xlim(-10, 30)
 
 ```
 
@@ -230,11 +238,11 @@ getMRCA(phy= plant_phylo, tip = c(10, 11, 12))
 
 #option 1
 plant_tree <- groupClade(plant_tree, .node=c(10, 11, 12))
-ggtree(plant_tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=group==2)) + geom_tiplab()
+ggtree(plant_tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=group==2)) + geom_tiplab() + + xlim(-10, 30)
 
 #option 2
 plant_tree <- groupClade(plant_tree, .node=c(31))
-ggtree(plant_tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=group==2)) + geom_tiplab()
+ggtree(plant_tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=group==2)) + geom_tiplab() + xlim(-10, 30)
 
 ```
 
@@ -244,10 +252,13 @@ ggtree(plant_tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=gr
 
 6. Note all the places where vascular elements evolved and link them
 ```{r}
-ggtree(plant_tree)+ geom_tiplab()+ geom_taxalink(')
+ggtree(plant_tree)+ geom_tiplab() + xlim(-10, 30) + geom_taxalink(')
 ```
 
 ggtree(tree) + geom_tiplab() + geom_taxalink('A', 'E') + 
   geom_taxalink('F', 'K', color='red', arrow=grid::arrow(length=grid::unit(0.02, "npc")))
 
 7. Do Porella cordeans, Blasia pusilla, Haplomitrium cooperi belong to a monophyletic (clade), polyphyletic or paraphyletic group? 
+
+If you get stuck, google is your friend! Rememeber to include terms like ggtree. Also, this FAQ website for the package is very useful:
+https://guangchuangyu.github.io/software/ggtree/faq/
