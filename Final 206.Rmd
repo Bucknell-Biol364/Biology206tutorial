@@ -90,7 +90,7 @@ This looks great, but let's make some alterations so you can explore the options
 
 First lets get a general idea of the information represented in your tree by having R generate a summary for you.
 
-```{r}
+```{r summary of tree}
 summary(test_tree)
 ```
 Explore the informatin in the summary table. Notice that R can tell you how many tips and nodes are contained in your tree as well as what each tip label is. 
@@ -99,14 +99,21 @@ Explore the informatin in the summary table. Notice that R can tell you how many
 The "plot()" function is great for making simple trees, but if you want to get creative and customize your tree, it is much easier to use the function "ggtree()". This function allows you to highlight different parts of your tree, identify clades, find common ancestors as well as change the general aesthetics of your tree. First, lets use the same newick file that we translated above to make a basic ggtree. To add labels for our taxa we will use "+" and then a "geom_tiplab()" to label the tips.
 
 Go ahead and make your tree using "ggtree()" and add labels to the tips of the tree usings "+ geom_tiplab()"
-```{r}
+```{r Using ggtree to plot a tree}
 ggtree(test_tree) + geom_tiplab()
 ```
 
 Great! Notice that this tree is essentially the same tree you made using the "plot()" function, but now you will see how easy it is to customize your ggtree!
 
 
-First, lets start by identifying a clade within your tree. Labelling a clade within a tree can be a really useful way to draw attention to a group of taxa that you want your reader to focus on. To highlight a clade we will use "+ geom_cladelabel()". Notice that there is some custom code within your clade label. "node =" tells R at what point in the tree to originate your clade. "label =" tells R what text you want to appear as your clade name and the following "color=" "offset=" and "align=" are different aesthetic parameters for your clade label. 
+First, lets start by identifying a node within your tree. Identifying shared nodes will be useful later on when you want to find clades and other types of phyletic groups.
+```{r Highlighting nodes}
+ggtree(test_tree) + geom_tiplab() + geom_nodepoint(color="yellow", alpha=.9)
+```
+Great! But what if you only want to higlight certain nodes?
+
+
+Labelling a clade within a tree can be a really useful way to draw attention to a group of taxa that you want your reader to focus on. To highlight a clade we will use "+ geom_cladelabel()". Notice that there is some custom code within your clade label. "node =" tells R at what point in the tree to originate your clade. "label =" tells R what text you want to appear as your clade name and the following "color=" "offset=" and "align=" are different aesthetic parameters for your clade label. 
 
 ```{r How to label a clade}
 ggtree(test_tree) + 
@@ -118,7 +125,7 @@ This looks great! Now your reader is able to interpret information about the tre
 
 
 You may be wondering how to know what node number your clade originates from. To do this you will want to map your nodes. Think of this as a map to your tree, you probably would not use this tree in a publication or paper, but you will use it to help generate more descriptive trees. To do this, add ("+") node labels to your tree by using "geom_text()". The information contained within this function is telling R that you want to label the internal nodes of your tree ("aes(label=node) and to place the labels to the right of the nodes ("hjust= -.4").
-```{r}
+```{r mapping nodes}
 ggtree(test_tree) + 
   geom_text(aes(label=node), hjust=-.4)
 ```
@@ -130,7 +137,7 @@ But what if you are not sure what the most recent commonly shared ancestor is fo
 You can also use the function "getMRCA()" to find the most recent common ancestor of two or more taxa. To use this function, simply tell R what tree it should look at ("phy= test_tree") and what taxa you want to know about (to do this use tip = c("taxa 1", "taxa 2",...)). 
 
 
-```{r}
+```{r finding most recent common ancestors}
 mrca(phy = test_tree, full = FALSE)
 
 getMRCA(phy= test_tree, tip= c("lamprey", "seabass"))
@@ -139,7 +146,7 @@ In your output window you will see the MRCA table. Look at where lamprey and sea
 
 
 You may also want to change the branch colors of a clade to make them stand out on your tree more. To do this, we have to tell ggtree the members of a clade using the function "groupClade(your tree, .node=# of your clades origin)" and assign that grouped clade to your tree using "<-". Then we will tell ggtree to make a new tree with all branches and members of that clade shown in a different color fromt the rest of your tree.
-```{r }
+```{r grouping clades}
 test_tree <- groupClade(test_tree, .node=9)
 ggtree(test_tree, aes(color=group, linetype=group)) +
   geom_tiplab()
@@ -151,13 +158,15 @@ But what if you want to represent a paraphyletic or polypheletic group? What if 
 
 Let's try this out by investigating whether lamprey and antelopes belong to a monophyletic (clade), polyphyletic or paraphyletic group.
 
-```{r}
+```{r identifying phylogenic groups}
 test_tree <- groupOTU(test_tree, .node = c("lamprey", "antelope"))
 ggtree(test_tree, aes(color=group, linetype=group)) +
   geom_tiplab()
 ```
 
 What do you think? Are all offspring of the shared ancestor of antelope and lamprey represented in the blue grouping? What type of phyletic group does this tree show in blue then?
+
+
 
 Plant Assignment:
 
