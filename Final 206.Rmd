@@ -236,7 +236,7 @@ getMRCA(phy= plant_phylo, tip = c(10, 11, 12))
 
 #option 1
 plant_tree <- groupClade(plant_tree, .node=c(10, 11, 12))
-ggtree(plant_tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=group==2)) + geom_tiplab() + + xlim(-10, 30)
+ggtree(plant_tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=group==2)) + geom_tiplab() + xlim(-10, 30)
 
 #option 2
 plant_tree <- groupClade(plant_tree, .node=c(31))
@@ -262,10 +262,8 @@ ggtree(plant_tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=gr
 
 5. Note all the places where vascular elements evolved and highlight them
 ```{r}
-ggtree(plant_tree)+ geom_tiplab() + xlim(-10, 30) + 
+ggtree(plant_tree)+ geom_tiplab() + xlim(-10, 30) 
 ```
-
-6. Do Porella cordeans, Blasia pusilla, Haplomitrium cooperi belong to a monophyletic (clade), polyphyletic or paraphyletic group? 
 
 7. Link the an angiosperm tree to a gymnosperm tree with green.
 ```{r}
