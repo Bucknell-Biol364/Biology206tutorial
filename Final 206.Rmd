@@ -106,11 +106,10 @@ ggtree(test_tree) + geom_tiplab()
 Great! Notice that this tree is essentially the same tree you made using the "plot()" function, but now you will see how easy it is to customize your ggtree!
 
 
-First, lets start by identifying a node within your tree. Identifying shared nodes will be useful later on when you want to find clades and other types of phyletic groups.
+First, lets start by identifying nodes within your tree. Identifying shared nodes will be useful later on when you want to find clades and other types of phyletic groups.
 ```{r Highlighting nodes}
-ggtree(test_tree) + geom_tiplab() + geom_nodepoint(color="yellow", alpha=.9)
+ggtree(test_tree) + geom_tiplab(hjust = -.2) + geom_nodepoint(color="yellow", alpha=.9, size= 4)
 ```
-Great! But what if you only want to higlight certain nodes?
 
 
 Labelling a clade within a tree can be a really useful way to draw attention to a group of taxa that you want your reader to focus on. To highlight a clade we will use "+ geom_cladelabel()". Notice that there is some custom code within your clade label. "node =" tells R at what point in the tree to originate your clade. "label =" tells R what text you want to appear as your clade name and the following "color=" "offset=" and "align=" are different aesthetic parameters for your clade label. 
@@ -150,6 +149,9 @@ You may also want to change the branch colors of a clade to make them stand out 
 test_tree <- groupClade(test_tree, .node=9)
 ggtree(test_tree, aes(color=group, linetype=group)) +
   geom_tiplab()
+
+test_tree <- groupClade(test_tree, .node=c(9, 8))
+ggtree(test_tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=group==2)) + geom_tiplab()
 ```
 The code above is an easy and simple way of identifying and representing monoplytic groups on your tree! 
 
@@ -187,13 +189,54 @@ plant_phylo <- read.tree(text=plants_newick)
 plot(plant_phylo,no.margin=TRUE, edge.width=1)
 ```
 
+```{r}
+plant_tree <- ggtree(plant_phylo) + geom_tiplab()
+plant_tree
+```
+
 So now you have basic tree with a bunch of scientific names. The goal is for you to use your skills from above, knowledge of trees, and likely google to figure out what exactly is on the tree and manipulate it to answer some questions. 
 
-1. Where are the most primitive plants? The most evolved? Find them and make the branch of the most primitive group red. 
+
+1. Where are the most primitive plants? The most evolved? Find them and highlight the branch of the most primitive group. 
+```{r}
+plant_tree <- ggtree(plant_phylo) + geom_tiplab()
+#mapping nodes
+ggtree(plant_phylo) +  
+  geom_text(aes(label=node), hjust=-.4)
+
+#highlighting most primitive 
+plant_tree <- groupClade(plant_tree, .node=1)
+ggtree(plant_tree, aes(color=group, linetype=group)) +
+  geom_tiplab()
+
+#highlighting most evolved
+plant_tree <- groupClade(plant_tree, .node=20)
+ggtree(plant_tree, aes(color=group, linetype=group)) +
+  geom_tiplab()
+
+#highlighting most primitive and most evolved on same tree
+plant_tree <- groupClade(plant_tree, .node=c(1, 20))
+ggtree(plant_tree, aes(color=group, linetype=group)) +
+  geom_tiplab()
+
+```
 
 2. Where did woody stems evolve? Find this branch and label it "Evolution of woody stems".
 
 3. Find the fern(s). What is the most closely related species. Put a cloud around ferns and its close relative(s). 
+```{r}
+#to find mrca
+getMRCA(phy= plant_phylo, tip = c(10, 11, 12))
+
+#option 1
+plant_tree <- groupClade(plant_tree, .node=c(10, 11, 12))
+ggtree(plant_tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=group==2)) + geom_tiplab()
+
+#option 2
+plant_tree <- groupClade(plant_tree, .node=c(31))
+ggtree(plant_tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=group==2)) + geom_tiplab()
+
+```
 
 4. Change the scientific name of one of the angiosperms to a common name.
 
@@ -204,3 +247,5 @@ So now you have basic tree with a bunch of scientific names. The goal is for you
 7. Denote a paraphyletic group by changing the font color. Give a brief description of what that traits of that group are. (Water dwellers maybe?)
 
 8. Note all the places where vascular elements evolved. 
+
+9. Do Porella cordeans, Blasia pusilla, Haplomitrium cooperi belong to a monophyletic (clade), polyphyletic or paraphyletic group? 
