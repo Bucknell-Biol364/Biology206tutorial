@@ -1,5 +1,5 @@
 ---
-title: "Final 206"
+title: "Final 206- answers included"
 output: html_document
 ---
 
@@ -244,7 +244,14 @@ ggtree(plant_tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=gr
 
 ```
 
-3. Label the two monophyletic clades with the order they belong in.
+3. Label the two angiosperm clade.
+```{r}
+ggtree(plant_tree)+
+  geom_tiplab() +
+  xlim(-7, 30) +
+  geom_cladelabel(node=39, label= "Angiosperms", color="purple", offset= 12, align=TRUE)
+```
+
 
 4. Where did roots and/or tracheids evolve? Highlight that node.
 ```{r}
@@ -265,6 +272,14 @@ ggtree(plant_tree)+ geom_tiplab() + xlim(-10, 30) +
 ggtree(plant_tree)+ geom_tiplab() + xlim(-10, 30)+ geom_taxalink('Carya_ovata', 'Pinus_strobilus', color='green')
 ```
 
+8. Label the monophyletic groups at the base of the tree with the broad category they fall into. 
+```{r}
+ggtree(plant_tree)+
+  geom_tiplab() +
+  xlim(-7, 30) +
+  geom_cladelabel(, label= "algae", color="blue", offset= 12, align=TRUE)
+```
+in progress 
 
 If you get stuck, google is your friend! Rememeber to include terms like ggtree. Also, this FAQ website for the package is very useful:
 https://guangchuangyu.github.io/software/ggtree/faq/
