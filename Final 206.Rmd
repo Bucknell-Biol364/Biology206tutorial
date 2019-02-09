@@ -24,9 +24,10 @@ You will find that all of these panels are very useful, however most of the work
 
 Now that you are familiar with the general layout of RStudio, let's begin with a tutorial!
 
-SHOULD WE REMOVE THE TRAIT TABLE?
+SHOULD WE REMOVE THE TRAIT TABLE? I think we should keep it and tell them to refernece it if they want an explanation of the tree. It's also a way for them to learn how to read in an excel file. 
 
 Reading in a table from a .csv (a type of excel file)
+This is a useful RStudio skill. This trait table will help you understand the test tree you will be constructing below.
 ```{r character table for test tree}
 data <- read.csv("trait_data.csv", header= TRUE, sep= ",")
 ```
@@ -51,16 +52,15 @@ BiocManager::install("ggtree", version = "3.8")
 library(ggtree)
 library(phytools)
 ```
-Note: R may ask you if you want to install all, some, or none of the package. Type "a" for all and hit enter. 
 
 Now you will assign this newick file (a common text format for trees) the name text_string so you can use it to build a tree. The characters "<-" tells R that you want to assign information that you type to the right of it to the name that you type to the left of it. Now whenever you use the value "text_string", R will know that it includes the information in the newick file.
 
 Assign the newick file to the name "text_string" now.
 
 ```{r tree text aka a newick file}
-text_string <- "((((lamprey, sea bass),antelope), (bald eagle), alligator));"
+text_string <- "((((alligator, bald eagle),antelope), (seabass), lamprey));"
 ```
-
+((((lamprey, sea bass),antelope), (bald eagle), alligator))
 Now look in the environment panel. Notice that you have populated it with a new variable called "text_string" and it contains the newick file. Great job!
 
 
@@ -198,7 +198,7 @@ So now you have basic tree with a bunch of scientific names. The goal is for you
 
 
 1. Where are the most primitive plants? The most evolved? Find them and highlight the branch of the most primitive group. 
-```{r}
+```{r question 1}
 plant_tree <- ggtree(plant_phylo) + geom_tiplab()
 #mapping nodes
 ggtree(plant_phylo) +  
@@ -221,10 +221,10 @@ ggtree(plant_tree, aes(color=group, linetype=group)) +
 
 ```
 
-2. Where did woody stems evolve? Find this branch and label it "Evolution of woody stems".
+2. Where did woody stems evolve? Find this node and label it "Evolution of woody stems".
 
 3. Find the fern(s). What is the most closely related species. Put a cloud around ferns and its close relative(s). 
-```{r}
+```{r question 3}
 #to find mrca
 getMRCA(phy= plant_phylo, tip = c(10, 11, 12))
 
@@ -238,14 +238,16 @@ ggtree(plant_tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=gr
 
 ```
 
-4. Change the scientific name of one of the angiosperms to a common name.
+4. Label the two monophyletic clades with the order they belong in.
 
-5. Label the two monophyletic groups with the order they belong in.
+5. Where did roots and/or tracheids evolve? Highlight that node.
 
-6. Where did roots and/or tracheids evolve? Highlight that node.
+6. Note all the places where vascular elements evolved and link them
+```{r}
+ggtree(plant_tree)+ geom_tiplab()+ geom_taxalink(')
+```
 
-7. Denote a paraphyletic group by changing the font color. Give a brief description of what that traits of that group are. (Water dwellers maybe?)
+ggtree(tree) + geom_tiplab() + geom_taxalink('A', 'E') + 
+  geom_taxalink('F', 'K', color='red', arrow=grid::arrow(length=grid::unit(0.02, "npc")))
 
-8. Note all the places where vascular elements evolved. 
-
-9. Do Porella cordeans, Blasia pusilla, Haplomitrium cooperi belong to a monophyletic (clade), polyphyletic or paraphyletic group? 
+7. Do Porella cordeans, Blasia pusilla, Haplomitrium cooperi belong to a monophyletic (clade), polyphyletic or paraphyletic group? 
