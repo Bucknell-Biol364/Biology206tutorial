@@ -229,9 +229,7 @@ ggtree(plant_tree, aes(color=group, linetype=group)) +
 
 ```
 
-2. Where did woody stems evolve? Find this node and label it "Evolution of woody stems".
-
-3. Find the fern(s). What is the most closely related species. Put a cloud around ferns and its close relative(s). 
+2. Find the fern(s). What is the most closely related species. Put a cloud around ferns and its close relative(s). 
 ```{r question 3}
 #to find mrca
 getMRCA(phy= plant_phylo, tip = c(10, 11, 12))
@@ -246,19 +244,27 @@ ggtree(plant_tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=gr
 
 ```
 
-4. Label the two monophyletic clades with the order they belong in.
+3. Label the two monophyletic clades with the order they belong in.
 
-5. Where did roots and/or tracheids evolve? Highlight that node.
-
-6. Note all the places where vascular elements evolved and link them
+4. Where did roots and/or tracheids evolve? Highlight that node.
 ```{r}
-ggtree(plant_tree)+ geom_tiplab() + xlim(-10, 30) + geom_taxalink(')
+plant_tree <- groupClade(plant_tree, .node=c(27))
+ggtree(plant_tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=group==2)) + geom_tiplab() + xlim(-10, 30)
 ```
 
-ggtree(tree) + geom_tiplab() + geom_taxalink('A', 'E') + 
-  geom_taxalink('F', 'K', color='red', arrow=grid::arrow(length=grid::unit(0.02, "npc")))
 
-7. Do Porella cordeans, Blasia pusilla, Haplomitrium cooperi belong to a monophyletic (clade), polyphyletic or paraphyletic group? 
+5. Note all the places where vascular elements evolved and highlight them
+```{r}
+ggtree(plant_tree)+ geom_tiplab() + xlim(-10, 30) + 
+```
+
+6. Do Porella cordeans, Blasia pusilla, Haplomitrium cooperi belong to a monophyletic (clade), polyphyletic or paraphyletic group? 
+
+7. Link the an angiosperm tree to a gymnosperm tree with green.
+```{r}
+ggtree(plant_tree)+ geom_tiplab() + xlim(-10, 30)+ geom_taxalink('Carya_ovata', 'Pinus_strobilus', color='green')
+```
+
 
 If you get stuck, google is your friend! Rememeber to include terms like ggtree. Also, this FAQ website for the package is very useful:
 https://guangchuangyu.github.io/software/ggtree/faq/
