@@ -244,6 +244,14 @@ ggtree(plant_tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=gr
 
 ```
 
+Label the pines, ferns, and liverworts on your tree. Are these groups monophyletic, paraphyletic or polypheletic? Highlight the nodes on your tree. How many traits are shared between the pines and liverworts? How many traits are shared between the liverworts and ferns? Based on what you know, are pines or ferns more closely related to liverworts?
+```{r}
+ggtree(plant_phylo) + 
+  geom_tiplab()+
+  geom_cladelabel(node=38, label="Pines", color="red", offset=8, align=TRUE) +     geom_cladelabel(node = 24, label = "Liverworts", color = "darkgreen", offset = 10, align = TRUE) + geom_cladelabel(node = 31, label = "Ferns", color = "blue", offset = 12, align = TRUE)  + geom_nodepoint(color="yellow", alpha=.9, size= 4) + xlim(-10, 30)
+```
+
+
 3. Label the two angiosperm clade.
 ```{r}
 ggtree(plant_tree)+
