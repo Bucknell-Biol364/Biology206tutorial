@@ -300,12 +300,26 @@ ggtree(plant_tree)+
   geom_cladelabel(node=2, label="green algae", color="green", offset=12, align=TRUE)
 ```
 
+Here is a tree of common names too, in case you think it should be provided
+```{r common name newick}
+common_name_newick <- "(red_algae, (green_algae, ((liverwort1, liverwort2, liverwort3),((Sphagnum_moss, fern_moss), ((shining_clubmoss, running_cedar), ((((marginal_woodfern, intermediate_woodfern),hay-scented_fern),((horsetail)), ((Ginkgo, ((white_pine, pitch_pine)), ((false_indigo, australian_eggplant,((black_walnut, shagbark_hickory)))))))))))));"
+```
+```{r reading cn newick}
+cn_phylo <- read.tree(text=common_name_newick)
+```
+```{r making cn tree}
+plot(cn_phylo,no.margin=TRUE, edge.width=1)
+```
+
+
 If you get stuck, google is your friend! Rememeber to include terms like ggtree. Also, this FAQ website for the package is very useful:
 https://guangchuangyu.github.io/software/ggtree/faq/
 
 Other resources used: 
 https://4va.github.io/biodatasci/r-ggtree.html
 http://bioconductor.org/packages/release/bioc/vignettes/treeio/inst/doc/Importer.html
+https://bioconductor.org/packages/release/bioc/vignettes/ggtree/inst/doc/treeManipulation.html
+https://www.khanacademy.org/science/biology/her/tree-of-life/a/building-an-evolutionary-tree
 BIOL 205 R tutorial 
 Animal Behavior and Neuro tutorial
 Dr. Field
