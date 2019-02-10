@@ -1,6 +1,8 @@
 ---
-title: "Final 206- answers included"
-output: html_document
+title: "206 tutorial- answers included"
+authors: "Cheyenne M., Katie B., Emily"
+date: "2/11/2019"
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
@@ -49,6 +51,7 @@ library(ggtree)
 library(phytools)
 ```
 
+As you click the green triangles to run code, you can see it running in the consile below. If your console is minimized, click "console" to expand it. This is also where it will ask you the questions mentioned above. 
 
 The trees that you will be constructing were made using a trait table. A trait table is a way of tracking shared or disimilar traits between taxa and, when combined with your tree, to track when a certain trait arises. For example, from a the first trait table you will use, you can see which taxa have jaws, which taxa do not have feathers. We will get into this later in the tutorial, but for now lets get your data table formatted and into R.
 
@@ -57,7 +60,7 @@ To "load" your trait table into R, we will use the function "read.csv()". A csv 
 ```{r trait table for test tree}
 data <- read.csv("trait_data.csv", header= TRUE, sep= ",")
 ```
-Take a look at your environment pane, do you see your new "data" under the data heading? Great! Click on your data to view the trait table.
+Take a look at your environment pane, do you see your new "data" under the data heading? Great! Click on your data in the environment window to view the trait table.
 
 
 Now you will assign this newick file (a common text format for trees) the name text_string so you can use it to build a tree. The characters "<-" tells R that you want to assign information that you type to the right of it to the name that you type to the left of it. Now whenever you use the value "text_string", R will know that it includes the information in the newick file.
@@ -87,6 +90,7 @@ Now that R is able to read the information you want to use, let's visualize this
 There are several functions for plotting phylogenic trees in R, but the simplest one is "plot()". This command works by typing the object that you want to plot followed by some formatting information."no.margin =" tells R to use the entire output frame to plot your tree and "edge.width =" tells R how thick to make the branches of your tree.
 
 Plot your first tree now!
+Running the code chunk below will create an image right below the chunk. 
 
 ```{r plotting tree}
 plot(test_tree,no.margin=TRUE, edge.width=1)
@@ -301,5 +305,7 @@ https://guangchuangyu.github.io/software/ggtree/faq/
 
 Other resources used: 
 https://4va.github.io/biodatasci/r-ggtree.html
+http://bioconductor.org/packages/release/bioc/vignettes/treeio/inst/doc/Importer.html
 BIOL 205 R tutorial 
 Animal Behavior and Neuro tutorial
+Dr. Field
