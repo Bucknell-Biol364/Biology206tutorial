@@ -2,8 +2,7 @@
 
 Introduction
 
-R is an important tool in analyzing and creating visually effective representations of data sets. Biology professors at Bucknell are starting to incorporate this program in their courses to teach their students better ways to prepare data sets, analyze different types of data, and expand their horizons on presenting their data. This is critical not only in understanding how to read and interpret data, but will aid in future research projects.     
-
+R is an important tool in analyzing and creating visually effective representations of data sets. Biology professors at Bucknell are starting to incorporate this program in their courses to teach their students better ways to prepare data sets, analyze different types of data, and expand their horizons on presenting their data.   
 
 How to access and use this tutorial
 
@@ -15,4 +14,4 @@ Open this folder and then find the "206 tutorial.Rmd" file. This is the R markdo
 
 Working through the document
 
-Through step by step instructions, you should attack this document by working through one code chunk at a time. This will make sure that you understand how R works and that you fully understand what exactly you are doing. Even in large chunks of code, you should still run each line separately to determine the direct output. To run one line of code at a time, highlight the line and then hit command + enter. 
+Through step by step instructions, you should attack this document by working through one code chunk at a time. This will make sure that you understand how R works and that you fully understand what exactly you are doing. Even in large chunks of code, you should still run each line separately to determine the direct output. To run one line of code at a time, highlight the line and then hit command + enter. If at any point you get stuck during this tutorial, do not hesitate to use your friend Google! Stackoverflow is also a handy resource to use when you reach a problem. 
