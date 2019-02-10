@@ -44,6 +44,7 @@ If a second Yes or No question appears, type Yes and hit enter.
 
 ```{r Loading packages}
 install.packages("tidyverse")
+install.packages("ape")
 install.packages("phytools")
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
@@ -52,6 +53,7 @@ BiocManager::install("ggtree", version = "3.8")
 ```{r library packaages}
 library(ggtree)
 library(phytools)
+library(ape)
 ```
 
 As you click the green triangles to run code, you can see it running in the consile below. If your console is minimized, click "console" to expand it. This is also where it will ask you the questions mentioned above. 
