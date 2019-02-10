@@ -42,6 +42,7 @@ To begin, lets make sure that you have the tools you will need to make a tree!
 R comes with many different types of tools that can be used to create and customize figures, as well as analyze your data and create meaningful images. Often these tools are created by users and organized into different "packages" for other users to explore and use in their own work. The first thing you will need to do is to "load" the tools you will need into Rstudio. This is done by using the command "install.packages()" as well as the command "library()" to load the tool you will use.
  
 Install the tidyverse package and load the ggtree tool by clicking the green arrow in the upper right corner of the grey code chunk. This may take a few minutes to do. Grab a cup of tea and relax! Watch the console pane for updates on loading your packages. There will come a point when you are asked whether you want to update all/some/none of the packages. Type "a" in the console pane after this message and hit enter.
+If a second Yes or No question appears, type Yes and hit enter.
 
 ```{r Loading packages}
 install.packages("tidyverse")
@@ -49,6 +50,8 @@ install.packages("phytools")
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install("ggtree", version = "3.8")
+```
+```{r library packaages}
 library(ggtree)
 library(phytools)
 ```
@@ -118,7 +121,7 @@ Labelling a clade within a tree can be a really useful way to draw attention to 
 ```{r How to label a clade}
 ggtree(test_tree) + 
   geom_tiplab()+
-  xlim(0, 5) +
+  xlim(0, 6) +
   geom_cladelabel(node=8, label="Clade 1", 
                   color="red", offset=.8, align=TRUE) 
 ```
@@ -244,7 +247,7 @@ ggtree(plant_tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=gr
 
 ```
 
-3. Label the two angiosperm clade.
+3. Label the angiosperm clade.
 ```{r}
 ggtree(plant_tree)+
   geom_tiplab() +
@@ -253,7 +256,7 @@ ggtree(plant_tree)+
 ```
 
 
-4. Where did roots and/or tracheids evolve? Highlight that node.
+4. Where did roots and/or tracheids evolve? Highlight the species they are present in.
 ```{r}
 plant_tree <- groupClade(plant_tree, .node=c(27))
 ggtree(plant_tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=group==2)) + geom_tiplab() + xlim(-10, 30)
@@ -281,3 +284,8 @@ in progress
 
 If you get stuck, google is your friend! Rememeber to include terms like ggtree. Also, this FAQ website for the package is very useful:
 https://guangchuangyu.github.io/software/ggtree/faq/
+
+Other resources used: 
+https://4va.github.io/biodatasci/r-ggtree.html
+BIOL 205 R tutorial 
+Animal Behavior and Neuro tutorial
