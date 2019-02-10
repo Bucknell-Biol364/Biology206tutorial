@@ -9,8 +9,6 @@ library(knitr)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Outline of project:
-
 Before we begin, lets review the basic layout of RStudio. 
 You are currently looking at the script window. You can enter text and save code chunks here.
 
@@ -22,15 +20,10 @@ The box on the bottom right has several tabs that contain different types of inf
 
 You will find that all of these panels are very useful, however most of the work you do in this tutorial will be in this panel.
 
-Now that you are familiar with the general layout of RStudio, let's begin with a tutorial!
+This tutorial is designed to help you construct a phylogenic tree and make some customizations that will make interpretation of the information it contains easier for you and your reader. You should know that RStudio and the tools you will be using are incredibly powerful and that this tutorial is in no way an exhaustive lists of their capabilities. That being said, once you complete this tutorial you should be well prepared to investigate these tools further! A great way to do this is to google your question (make sure you specify that you are working in ggtree) and the odds that someone has already answered this are high! There are plenty of forums where you can read about packages or functions, troubleshoot error messages, and ask for input on your code!
 
-SHOULD WE REMOVE THE TRAIT TABLE? I think we should keep it and tell them to refernece it if they want an explanation of the tree. It's also a way for them to learn how to read in an excel file. 
+Now that you are familiar with the general layout of RStudio and how to find help when you need it, let's begin with a tutorial!
 
-Reading in a table from a .csv (a type of excel file)
-This is a useful RStudio skill. This trait table will help you understand the test tree you will be constructing below.
-```{r character table for test tree}
-data <- read.csv("trait_data.csv", header= TRUE, sep= ",")
-```
 
 Guided Tutorial:
 You may remember using Rstudio during Bio 205 to visualize and analyze data. Rstudio can also be used to visualize and customize phylogenic trees!
@@ -55,6 +48,17 @@ BiocManager::install("ggtree", version = "3.8")
 library(ggtree)
 library(phytools)
 ```
+
+
+The trees that you will be constructing were made using a trait table. A trait table is a way of tracking shared or disimilar traits between taxa and, when combined with your tree, to track when a certain trait arises. For example, from a the first trait table you will use, you can see which taxa have jaws, which taxa do not have feathers. We will get into this later in the tutorial, but for now lets get your data table formatted and into R.
+
+To "load" your trait table into R, we will use the function "read.csv()". A csv file is a way of saving information that was formatted in an Excel spreadsheet to be read by R. The Excel spreadsheet has already been made for you and saved as a csv file. Now you need to tell R to "read" the file and asign it a name (let's call your trait table "data"). To do this, click the green arrow to in the upper right corner of the code chunk.
+
+```{r trait table for test tree}
+data <- read.csv("trait_data.csv", header= TRUE, sep= ",")
+```
+Take a look at your environment pane, do you see your new "data" under the data heading? Great! Click on your data to view the trait table.
+
 
 Now you will assign this newick file (a common text format for trees) the name text_string so you can use it to build a tree. The characters "<-" tells R that you want to assign information that you type to the right of it to the name that you type to the left of it. Now whenever you use the value "text_string", R will know that it includes the information in the newick file.
 
@@ -180,6 +184,15 @@ ggtree(test_tree, aes(color=group, linetype=group)) +
 What do you think? Are all offspring of the shared ancestor of antelope and lamprey represented in the blue grouping? What type of phyletic group does this tree show in blue then?
 
 
+In addition to all of the wonderful ways that GGtree can customize your that you have just seen, it also allows you to make different types of tree! Though the focus of this tutorial is not to use these different layouts, it is nice to know that you could use them in the future. You could make a wonderful forests of unique phylogenic trees! The first layout, "slanted" is similar to the ggtree we have used above, but it smooths the branches to be aesthetically pleasing. The next two layouts are known as "unrooted" trees, which do not show direction of ancestoral relation like rooted trees do.
+```{r Tree layouts}
+ggtree(test_tree, layout="slanted") + geom_tiplab()+
+  xlim(0, 5)
+ggtree(test_tree, layout="circular")+ geom_tiplab()+
+  xlim(0, 5)
+ggtree(test_tree, layout="equal_angle")+ geom_tiplab()
+```
+
 
 Plant Assignment:
 
@@ -247,7 +260,19 @@ ggtree(plant_tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=gr
 
 ```
 
+<<<<<<< HEAD
 3. Label the angiosperm clade.
+=======
+Label the pines, ferns, and liverworts on your tree. Are these groups monophyletic, paraphyletic or polypheletic? Highlight the nodes on your tree. How many traits are shared between the pines and liverworts? How many traits are shared between the liverworts and ferns? Based on what you know, are pines or ferns more closely related to liverworts?
+```{r}
+ggtree(plant_phylo) + 
+  geom_tiplab()+
+  geom_cladelabel(node=38, label="Pines", color="red", offset=8, align=TRUE) +     geom_cladelabel(node = 24, label = "Liverworts", color = "darkgreen", offset = 10, align = TRUE) + geom_cladelabel(node = 31, label = "Ferns", color = "blue", offset = 12, align = TRUE)  + geom_nodepoint(color="yellow", alpha=.9, size= 4) + xlim(-10, 30)
+```
+
+
+3. Label the two angiosperm clade.
+>>>>>>> a25e37cc774b6bb65628ae479452c2e83fa27d1a
 ```{r}
 ggtree(plant_tree)+
   geom_tiplab() +
