@@ -28,6 +28,9 @@ Now that you are familiar with the general layout of RStudio and how to find hel
 
 
 Guided Tutorial:
+
+Before we can do any work in R, we need to make a safe place to store and organize our work. To do this, you should create a folder on your computer and name it "Tree Tutorial". In this folder you should put the unzipped folder into this new folder. After you have done this, go to the R Studio menu at the top of your computer where it has drop downs for "File", "Edit", etc. Open up the "Sessions" drop down, which is located in the middle. Then, click "Set Working Directory" and select "Choose Directory". Within the file explorer that will appear, find where you stored the new folder you created for this project. Select the folder and click "Ok" to set it as your working directory. 
+
 You may remember using Rstudio during Bio 205 to visualize and analyze data. Rstudio can also be used to visualize and customize phylogenic trees!
 
 The following tutorial has been designed to walk you through the process of constructiong a phylogenic tree using R. You will learn about the different tools you will need to build a tree, how to customize a tree, and how to interpret information represented in a tree.
@@ -316,6 +319,7 @@ If you get stuck, google is your friend! Rememeber to include terms like ggtree.
 https://guangchuangyu.github.io/software/ggtree/faq/
 
 Other resources used: 
+https://bioconductor.org/packages/release/bioc/vignettes/ggtree/inst/doc/treeAnnotation.html
 https://4va.github.io/biodatasci/r-ggtree.html
 http://bioconductor.org/packages/release/bioc/vignettes/treeio/inst/doc/Importer.html
 https://bioconductor.org/packages/release/bioc/vignettes/ggtree/inst/doc/treeManipulation.html
