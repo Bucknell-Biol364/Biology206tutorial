@@ -246,7 +246,7 @@ ggtree(plant_tree, aes(color=group, linetype=group)) +
 ```
 
 2. Find the fern(s). What is the most closely related species. Put a cloud around ferns and its close relative(s). 
-```{r question 3}
+```{r question 2}
 #to find mrca
 getMRCA(phy= plant_phylo, tip = c(10, 11, 12))
 
@@ -260,52 +260,41 @@ ggtree(plant_tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=gr
 
 ```
 
-<<<<<<< HEAD
 3. Label the angiosperm clade.
-=======
-Label the pines, ferns, and liverworts on your tree. Are these groups monophyletic, paraphyletic or polypheletic? Highlight the nodes on your tree. How many traits are shared between the pines and liverworts? How many traits are shared between the liverworts and ferns? Based on what you know, are pines or ferns more closely related to liverworts?
-```{r}
-ggtree(plant_phylo) + 
-  geom_tiplab()+
-  geom_cladelabel(node=38, label="Pines", color="red", offset=8, align=TRUE) +     geom_cladelabel(node = 24, label = "Liverworts", color = "darkgreen", offset = 10, align = TRUE) + geom_cladelabel(node = 31, label = "Ferns", color = "blue", offset = 12, align = TRUE)  + geom_nodepoint(color="yellow", alpha=.9, size= 4) + xlim(-10, 30)
-```
-
-
-3. Label the two angiosperm clade.
->>>>>>> a25e37cc774b6bb65628ae479452c2e83fa27d1a
-```{r}
+```{r question 3}
 ggtree(plant_tree)+
   geom_tiplab() +
   xlim(-7, 30) +
   geom_cladelabel(node=39, label= "Angiosperms", color="purple", offset= 12, align=TRUE)
 ```
 
-
 4. Where did roots and/or tracheids evolve? Highlight the species they are present in.
-```{r}
+```{r question 4}
 plant_tree <- groupClade(plant_tree, .node=c(27))
 ggtree(plant_tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=group==2)) + geom_tiplab() + xlim(-10, 30)
 ```
 
-
-5. Note all the places where vascular elements evolved and highlight them
-```{r}
-ggtree(plant_tree)+ geom_tiplab() + xlim(-10, 30) 
+5. Note all the places where vessel elements evolved and highlight them
+```{r question 5}
+ggtree(plant_tree)+ geom_tiplab() + xlim(-10, 30)+ 
+  geom_nodepoint( color="brown", alpha=.9, size=3) + 
+  geom_point2(aes(subset=(node == 28)), size=4, shape=23, fill="tan")+   geom_point2(aes(subset=(node == 31)), size=4, shape=23, fill="tan") + geom_point2(aes(subset=(node == 39)), size=4, shape=23, fill="tan")
 ```
+ggtree(test_tree) + geom_tiplab(hjust = -.2) + geom_nodepoint(color="yellow", alpha=.9, size= 4) + xlim(0, 5)
 
-7. Link the an angiosperm tree to a gymnosperm tree with green.
-```{r}
+6. Link the an angiosperm tree to a gymnosperm tree with green.
+```{r question 6}
 ggtree(plant_tree)+ geom_tiplab() + xlim(-10, 30)+ geom_taxalink('Carya_ovata', 'Pinus_strobilus', color='green')
 ```
 
-8. Label the monophyletic groups at the base of the tree with the broad category they fall into. 
-```{r}
+7. Label the monophyletic groups at the base of the tree with the broad category they fall into. 
+```{r question 7}
 ggtree(plant_tree)+
   geom_tiplab() +
   xlim(-7, 30) +
-  geom_cladelabel(, label= "algae", color="blue", offset= 12, align=TRUE)
+  geom_cladelabel(node=1, label= "red algae", color="red", offset= 12, align=TRUE)+
+  geom_cladelabel(node=2, label="green algae", color="green", offset=12, align=TRUE)
 ```
-in progress 
 
 If you get stuck, google is your friend! Rememeber to include terms like ggtree. Also, this FAQ website for the package is very useful:
 https://guangchuangyu.github.io/software/ggtree/faq/
