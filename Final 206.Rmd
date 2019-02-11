@@ -4,7 +4,7 @@ authors: "Cheyenne M., Katie B., Emily"
 date: "2/11/2019"
 output: github_document
 ---
-jk
+
 Before we begin, lets review the basic layout of RStudio. 
 You are currently looking at the script window. You can enter text and save code chunks here.
 
@@ -110,30 +110,40 @@ Explore the informatin in the summary table. Notice that R can tell you how many
 The "plot()" function is great for making simple trees, but if you want to get creative and customize your tree, it is much easier to use the function "ggtree()". This function allows you to highlight different parts of your tree, identify clades, find common ancestors as well as change the general aesthetics of your tree. First, lets use the same newick file that we translated above to make a basic ggtree. To add labels for our taxa we will use "+" and then a "geom_tiplab()" to label the tips.
 
 Go ahead and make your tree using "ggtree()" and add labels to the tips of the tree usings "+ geom_tiplab()"
-```{r Using ggtree to plot a tree}
+```{r using ggtree to plot a tree}
 ggtree(test_tree) + geom_tiplab() + xlim(0, 5)
 ```
 Note: the xlim aregument helps to not cut off the tip labels. Change them around if you want to see what I mean, or get rid of the arguemnt entirely.
 
 Great! Notice that this tree is essentially the same tree you made using the "plot()" function, but now you will see how easy it is to customize your ggtree!
 
-
 First, lets start by identifying nodes within your tree. Identifying shared nodes will be useful later on when you want to find clades and other types of phyletic groups.
-```{r Highlighting nodes}
+```{r highlighting nodes}
 ggtree(test_tree) + geom_tiplab(hjust = -.2) + geom_nodepoint(color="yellow", alpha=.9, size= 4) + xlim(0, 5)
 ```
 
-You can also mark just one node
-```{r Highlighting one node}
-geom_point2(aes(subset=(node == 8)), size=4, shape=23, fill="purple")
+For customizing your tree, it will be helpful number your nodes.Think of this as a map to your tree, you probably would not use this tree in a publication or paper, but you will use it to help generate more descriptive trees. To do this, add ("+") node labels to your tree by using "geom_text()". The information contained within this function is telling R that you want to label the internal nodes of your tree ("aes(label=node) and to place the labels to the right of the nodes ("hjust= -.4").
+```{r mapping nodes}
+ggtree(test_tree) + 
+  geom_text(aes(label=node), hjust=-.4)+
+  xlim(0, 5)
 ```
-You can find the node you want to label by using the code chunk "mapping nodes"
+Now that you have your nodes mapped, you can make specific customizations like the one below!
+
+Let's say you want to highlight a specific node. For example, you want to highlight where feathers developed. This can be done by adding a "geom_point2()" to your tree. The code chunk below had lots of formatting code, but the parts you should pay attention to are "node== 9" which tells R which node to highlight and "size = 4" which tells R what size to make your node.
+```{r highlighting one node}
+ggtree(test_tree)+ geom_tiplab() + xlim(0, 5)+ 
+  geom_nodepoint( color="brown", alpha=.9, size=3) + 
+  geom_point2(aes(subset=(node == 9)), size=4, shape=23, fill="purple")   
+```
+That looks great! You can see that the feathers trait separates alligator from baldeagle. Now go back to the code chunk above and change the code to hightlight where gizzards evolved and separate antelope from baldeagle and alligator (hint: look at the trait table to see which traits are shared by these taxa and which are not).
+
 Size changes the size of the point and shape can change the shape. Change the numbers or do some googling to see the other shapes.
 
 
 Labelling a clade within a tree can be a really useful way to draw attention to a group of taxa that you want your reader to focus on. To highlight a clade we will use "+ geom_cladelabel()". Notice that there is some custom code within your clade label. "node =" tells R at what point in the tree to originate your clade. "label =" tells R what text you want to appear as your clade name and the following "color=" "offset=" and "align=" are different aesthetic parameters for your clade label. 
 
-```{r How to label a clade}
+```{r how to label a clade}
 ggtree(test_tree) + 
   geom_tiplab()+
   xlim(0, 6) +
@@ -142,20 +152,14 @@ ggtree(test_tree) +
 ```
 This looks great! Now your reader is able to interpret information about the tree you have made.
 
+Using your tree map, go to the code chunk {r How to label a clade} and label the clade that only includes nodes 1 and 2 (sea bass and lamprey) by telling R which node to originate your clade from.
+```{r practice}
 
-You may be wondering how to know what node number your clade originates from. To do this you will want to map your nodes. Think of this as a map to your tree, you probably would not use this tree in a publication or paper, but you will use it to help generate more descriptive trees. To do this, add ("+") node labels to your tree by using "geom_text()". The information contained within this function is telling R that you want to label the internal nodes of your tree ("aes(label=node) and to place the labels to the right of the nodes ("hjust= -.4").
-```{r mapping nodes}
-ggtree(test_tree) + 
-  geom_text(aes(label=node), hjust=-.4)+
-  xlim(0, 5)
 ```
-Using your tree map, go back to the code chunk {r How to label a clade} and label the clade that only includes nodes 1 and 2 (sea bass and lamprey) by telling R which node to originate your clade from.
-
 
 But what if you are not sure what the most recent commonly shared ancestor is for a group of taxa? Ggtree has some helpful functions for this! The function "mrca()" will generate a table where you can find the most recently shared node between any two taxa. For example, the most recently shared node between lamprey and sea bass is at node 9. 
 
-You can also use the function "getMRCA()" to find the most recent common ancestor of two or more taxa. To use this function, simply tell R what tree it should look at ("phy= test_tree") and what taxa you want to know about (to do this use tip = c("taxa 1", "taxa 2",...)). 
-
+You can also use the function "getMRCA()" to find the most recent common ancestor of two or more taxa. To use this function, simply tell R what tree it should look at ("phy= test_tree") and what taxa you want to know about (to do this use tip = c("taxa 1", "taxa 2",...)). While, it may not be as needed for small trees, it can be helpful for large phylogenies!
 
 ```{r finding most recent common ancestors}
 mrca(phy = test_tree, full = FALSE)
@@ -202,7 +206,7 @@ ggtree(test_tree)+ geom_tiplab() + xlim(-1, 5)+ geom_taxalink('lamprey', 'antelo
 That looks awesome! You have successfully linked the taxa antelope and lamprey together on your phylogenetic tree with a pretty green line. 
 
 In addition to all of the wonderful ways that GGtree can customize your that you have just seen, it also allows you to make different types of tree! Though the focus of this tutorial is not to use these different layouts, it is nice to know that you could use them in the future. You could make a wonderful forests of unique phylogenic trees! The first layout, "slanted" is similar to the ggtree we have used above, but it smooths the branches to be aesthetically pleasing. The next two layouts are known as "unrooted" trees, which do not show direction of ancestoral relation like rooted trees do.
-```{r Tree layouts}
+```{r tree layouts}
 ggtree(test_tree, layout="slanted") + geom_tiplab()+
   xlim(0, 5)
 ggtree(test_tree, layout="circular")+ geom_tiplab()+
