@@ -194,6 +194,12 @@ ggtree(test_tree, aes(color=group, linetype=group)) +
 
 What do you think? Are all offspring of the shared ancestor of antelope and lamprey represented in the blue grouping? What type of phyletic group does this tree show in blue then?
 
+Now that we figured out how to identify phylogenetic groups and determined if your list of taxa was mono/para/polyphyletic, we can use 'geom_taxalink' to nicely show how two taxes are linked. Use this code chunk to link lamprey and antelope on your tree. Note that there is some custom code in this chunk. By toggling with the 'xlim' values, you can stretch your tree out or you can make it more narrow. The color code also allows you to use whatever color you deem is fit for your data visualization. 
+
+```{r linking taxa}
+ggtree(test_tree)+ geom_tiplab() + xlim(-1, 5)+ geom_taxalink('lamprey', 'antelope', color='green')
+```
+That looks awesome! You have successfully linked the taxa antelope and lamprey together on your phylogenetic tree with a pretty green line. 
 
 In addition to all of the wonderful ways that GGtree can customize your that you have just seen, it also allows you to make different types of tree! Though the focus of this tutorial is not to use these different layouts, it is nice to know that you could use them in the future. You could make a wonderful forests of unique phylogenic trees! The first layout, "slanted" is similar to the ggtree we have used above, but it smooths the branches to be aesthetically pleasing. The next two layouts are known as "unrooted" trees, which do not show direction of ancestoral relation like rooted trees do.
 ```{r Tree layouts}
