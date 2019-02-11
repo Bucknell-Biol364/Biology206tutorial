@@ -4,7 +4,7 @@ authors: "Cheyenne M., Katie B., Emily"
 date: "2/11/2019"
 output: github_document
 ---
-
+jk
 Before we begin, lets review the basic layout of RStudio. 
 You are currently looking at the script window. You can enter text and save code chunks here.
 
