@@ -5,12 +5,6 @@ date: "2/11/2019"
 output: github_document
 ---
 
-```{r setup, include=FALSE}
-install.packages("knitr")
-library(knitr)
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 Before we begin, lets review the basic layout of RStudio. 
 You are currently looking at the script window. You can enter text and save code chunks here.
 
@@ -55,8 +49,10 @@ library(ggtree)
 library(phytools)
 library(ape)
 ```
+If for some reason the code above doesn't work there is an alternative way to install packages. Click on the packages tab of the lower righthand window. Click install and search for the package you need, then click install. Once it is installed you can find it in the list of packages and click the box to the left of it. You may need to do this for a package called igraph depending on what version of RStudtio the computer you are using has. 
 
-As you click the green triangles to run code, you can see it running in the consile below. If your console is minimized, click "console" to expand it. This is also where it will ask you the questions mentioned above. 
+
+As you click the green triangles to run code, you can see it running in the console below. If your console is minimized, click "console" to expand it. This is also where it will ask you the questions mentioned above. 
 
 The trees that you will be constructing were made using a trait table. A trait table is a way of tracking shared or disimilar traits between taxa and, when combined with your tree, to track when a certain trait arises. For example, from a the first trait table you will use, you can see which taxa have jaws, which taxa do not have feathers. We will get into this later in the tutorial, but for now lets get your data table formatted and into R.
 
