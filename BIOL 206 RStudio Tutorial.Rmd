@@ -1,4 +1,15 @@
 ---
+title: "206 tutorial"
+authors: "Cheyenne M., Katie B., Emily"
+date: "2/11/2019"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+---
 title: "206 tutorial- answers included"
 authors: "Cheyenne M., Katie B., Emily"
 date: "2/11/2019"
@@ -244,96 +255,38 @@ So now you have basic tree with a bunch of scientific names. The goal is for you
 
 1. Where are the most primitive plants? The most evolved? Find them and highlight the branch of the most primitive group. 
 ```{r question 1}
-plant_tree <- ggtree(plant_phylo) + geom_tiplab() + xlim(-10, 30)
-#mapping nodes
-ggtree(plant_phylo) +  
-  geom_text(aes(label=node), hjust=-.4)
-
-#highlighting most primitive 
-plant_tree <- groupClade(plant_tree, .node=1)
-ggtree(plant_tree, aes(color=group, linetype=group)) +
-  geom_tiplab() + xlim(-10, 30)
-
-#highlighting most evolved
-plant_tree <- groupClade(plant_tree, .node=20)
-ggtree(plant_tree, aes(color=group, linetype=group)) +
-  geom_tiplab() + xlim(-10, 30)
-
-#highlighting most primitive and most evolved on same tree
-plant_tree <- groupClade(plant_tree, .node=c(1, 20))
-ggtree(plant_tree, aes(color=group, linetype=group)) +
-  geom_tiplab() + xlim(-10, 30)
 
 ```
 
 2. Find the fern(s). What is the most closely related species. Put a cloud around ferns and its close relative(s). 
 ```{r question 2}
-#to find mrca
-getMRCA(phy= plant_phylo, tip = c(10, 11, 12))
-
-#option 1
-plant_tree <- groupClade(plant_tree, .node=c(10, 11, 12))
-ggtree(plant_tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=group==2)) + geom_tiplab() + xlim(-10, 30)
-
-#option 2
-plant_tree <- groupClade(plant_tree, .node=c(31))
-ggtree(plant_tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=group==2)) + geom_tiplab() + xlim(-10, 30)
 
 ```
 
 3. Label the angiosperm clade.
 ```{r question 3}
-ggtree(plant_tree)+
-  geom_tiplab() +
-  xlim(-7, 30) +
-  geom_cladelabel(node=39, label= "Angiosperms", color="purple", offset= 12, align=TRUE)
+
 ```
 
 4. Where did roots and/or tracheids evolve? Highlight the species they are present in.
 ```{r question 4}
-plant_tree <- groupClade(plant_tree, .node=c(27))
-ggtree(plant_tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=group==2)) + geom_tiplab() + xlim(-10, 30)
+
 ```
 
 5. Note all the places where vessel elements evolved and highlight them
 ```{r question 5}
-ggtree(plant_tree)+ geom_tiplab() + xlim(-10, 30) + 
-  geom_nodepoint( color="brown", alpha=.9, size=3) + 
-  geom_point2(aes(subset=(node == 28)), size=4, shape=23, fill="tan") + 
-  geom_point2(aes(subset=(node == 31)), size=4, shape=23, fill="tan") +
-  geom_point2(aes(subset=(node == 39)), size=4, shape=23, fill="tan")
+
 ```
 
 6. Link the an angiosperm tree to a gymnosperm tree with green.
 ```{r question 6}
-ggtree(plant_tree)+ geom_tiplab() + xlim(-10, 30)+ geom_taxalink('Carya_ovata', 'Pinus_strobilus', color='green')
+
 ```
 
 7. Label the monophyletic groups at the base of the tree with the broad category they fall into. 
 ```{r question 7}
-ggtree(plant_tree)+
-  geom_tiplab() +
-  xlim(-7, 30) +
-  geom_cladelabel(node=1, label= "red algae", color="red", offset= 12, align=TRUE)+
-  geom_cladelabel(node=2, label="green algae", color="green", offset=12, align=TRUE)
-```
 
-Here is a tree of common names too, in case you think it should be provided
-```{r common name newick}
-common_name_newick <- "(red_algae, (green_algae, ((liverwort1, liverwort2, liverwort3),((Sphagnum_moss, fern_moss), ((shining_clubmoss, running_cedar), ((((marginal_woodfern, intermediate_woodfern),hay-scented_fern),((horsetail)), ((Ginkgo, ((white_pine, pitch_pine)), ((false_indigo, australian_eggplant,((black_walnut, shagbark_hickory)))))))))))));"
 ```
-```{r reading cn newick}
-cn_phylo <- read.tree(text=common_name_newick)
-```
-```{r making cn tree}
-plot(cn_phylo,no.margin=TRUE, edge.width=1)
-```
-
-There's also a plant character table in github too, if you think it would be useful for students
-```{r}
-plant_traits <- read.csv ("plant_character_table.csv", header=TRUE, sep=",")
-```
-
 
 
 If you get stuck, google is your friend! Rememeber to include terms like ggtree. Also, this FAQ website for the package is very useful:
