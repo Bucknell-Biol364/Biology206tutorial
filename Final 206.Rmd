@@ -71,7 +71,6 @@ Assign the newick file to the name "text_string" now.
 ```{r tree text aka a newick file}
 text_string <- "((((alligator, bald eagle),antelope), (seabass), lamprey));"
 ```
-((((lamprey, sea bass),antelope), (bald eagle), alligator))
 Now look in the environment panel. Notice that you have populated it with a new variable called "text_string" and it contains the newick file. Great job!
 
 
@@ -123,6 +122,13 @@ First, lets start by identifying nodes within your tree. Identifying shared node
 ```{r Highlighting nodes}
 ggtree(test_tree) + geom_tiplab(hjust = -.2) + geom_nodepoint(color="yellow", alpha=.9, size= 4) + xlim(0, 5)
 ```
+
+You can also mark just one node
+```{r Highlighting one node}
+geom_point2(aes(subset=(node == 8)), size=4, shape=23, fill="purple")
+```
+You can find the node you want to label by using the code chunk "mapping nodes"
+Size changes the size of the point and shape can change the shape. Change the numbers or do some googling to see the other shapes.
 
 
 Labelling a clade within a tree can be a really useful way to draw attention to a group of taxa that you want your reader to focus on. To highlight a clade we will use "+ geom_cladelabel()". Notice that there is some custom code within your clade label. "node =" tells R at what point in the tree to originate your clade. "label =" tells R what text you want to appear as your clade name and the following "color=" "offset=" and "align=" are different aesthetic parameters for your clade label. 
@@ -281,9 +287,11 @@ ggtree(plant_tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=gr
 
 5. Note all the places where vessel elements evolved and highlight them
 ```{r question 5}
-ggtree(plant_tree)+ geom_tiplab() + xlim(-10, 30)+ 
+ggtree(plant_tree)+ geom_tiplab() + xlim(-10, 30) + 
   geom_nodepoint( color="brown", alpha=.9, size=3) + 
-  geom_point2(aes(subset=(node == 28)), size=4, shape=23, fill="tan")+   geom_point2(aes(subset=(node == 31)), size=4, shape=23, fill="tan") + geom_point2(aes(subset=(node == 39)), size=4, shape=23, fill="tan")
+  geom_point2(aes(subset=(node == 28)), size=4, shape=23, fill="tan") + 
+  geom_point2(aes(subset=(node == 31)), size=4, shape=23, fill="tan") +
+  geom_point2(aes(subset=(node == 39)), size=4, shape=23, fill="tan")
 ```
 ggtree(test_tree) + geom_tiplab(hjust = -.2) + geom_nodepoint(color="yellow", alpha=.9, size= 4) + xlim(0, 5)
 
@@ -311,6 +319,12 @@ cn_phylo <- read.tree(text=common_name_newick)
 ```{r making cn tree}
 plot(cn_phylo,no.margin=TRUE, edge.width=1)
 ```
+
+There's also a plant character table in github too, if you think it would be useful for students
+```{r}
+plant_traits <- read.csv ("plant_character_table.csv", header=TRUE, sep=",")
+```
+
 
 
 If you get stuck, google is your friend! Rememeber to include terms like ggtree. Also, this FAQ website for the package is very useful:
