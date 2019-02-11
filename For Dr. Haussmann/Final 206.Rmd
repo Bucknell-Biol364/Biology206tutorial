@@ -335,7 +335,6 @@ plant_traits <- read.csv ("plant_character_table.csv", header=TRUE, sep=",")
 ```
 
 
-
 If you get stuck, google is your friend! Rememeber to include terms like ggtree. Also, this FAQ website for the package is very useful:
 https://guangchuangyu.github.io/software/ggtree/faq/
 
