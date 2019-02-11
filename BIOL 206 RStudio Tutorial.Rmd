@@ -5,17 +5,6 @@ date: "2/11/2019"
 output: github_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
----
-title: "206 tutorial- answers included"
-authors: "Cheyenne M., Katie B., Emily"
-date: "2/11/2019"
-output: github_document
----
-
 Before we begin, lets review the basic layout of RStudio. 
 You are currently looking at the script window. You can enter text and save code chunks here.
 
